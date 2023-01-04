@@ -3,7 +3,7 @@
     public class TbCategoria
     {
         public int Id { get; set; }
-        public string Catgeoria { get; set; }
+        public string Categoria { get; set; }
 
     }
 }

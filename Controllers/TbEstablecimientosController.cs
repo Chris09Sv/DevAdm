@@ -65,6 +65,9 @@ namespace DevControl.Controllers
             var list_cat  = new SelectList(cat,"Id","Categoria");
             ViewData["DbCategoria"]= list_cat;
 
+            var nivel = _context.tbNivel.ToList();
+            var list_nivel  = new SelectList(nivel,"Id","Nivel");
+            ViewData["DbNivel"]= list_nivel;
             return View();
         }
 

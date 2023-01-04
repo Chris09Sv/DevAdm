@@ -20,9 +20,11 @@ namespace DevControl.Data
         public DbSet<TbSubsector> tbSubsectors { get; set; } = default!;
         public DbSet<TbEstablecimientos> tbEstablecimientos { get; set; } = default!;
         public DbSet<TbProvincias> tbProvincias { get; set; } = default!;
-        //public DbSet<TbMunicipio> tbMunicipios { get; set; } = default!;
-        //public DbSet<TbDistrito> tbDistritos { get; set; } = default!;
-        //public DbSet<TbSector> tbSectores { get; set; } = default!;
+        public DbSet<TbMunicipio> tbMunicipios { get; set; } = default!;
+        public DbSet<TbDistrito> tbDistritos { get; set; } = default!;
+        public DbSet<TbSector> tbSectores { get; set; } = default!;
+        public DbSet<TbNivel> tbNivel { get; set; } = default!;
+
 
 
     }

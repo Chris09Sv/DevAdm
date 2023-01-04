@@ -14,5 +14,11 @@
         public int Distrito { get; set; }
         public int Sector { get; set; }
         public int Area { get; set; }
+        // public int Laboratorio { get; set; }
+        // public int IdViepi { get; set; }
+        // public string sat { get; set; }
+
+
+        
     }
 }
