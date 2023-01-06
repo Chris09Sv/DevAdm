@@ -12,11 +12,12 @@
         public int Provincia { get; set; }
         public int Municipio { get; set; }
         public int Distrito { get; set; }
-        public int Sector { get; set; }
+        public int? Sector { get; set; }
         public int Area { get; set; }
-        // public int Laboratorio { get; set; }
-        // public int IdViepi { get; set; }
-        // public string sat { get; set; }
+        public int prueba  {get;set;}
+        public int Laboratorio { get; set; }
+        public int IdViepi { get; set; }
+        public string? Sat { get; set; }
 
 
         

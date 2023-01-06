@@ -7,24 +7,30 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using DevControl.Data;
 using DevControl.Models.Establecimientos;
+using DevControl.Services;
 
 namespace DevControl.Controllers
 {
     public class TbEstablecimientosController : Controller
     {
         private readonly DevContext _context;
+        private readonly IData _data;
 
-        public TbEstablecimientosController(DevContext context)
+
+        public TbEstablecimientosController(DevContext context,IData data)
         {
+            _data=data;
             _context = context;
         }
 
         // GET: TbEstablecimientos
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-              return _context.tbEstablecimientos != null ? 
-                          View(await _context.tbEstablecimientos.ToListAsync()) :
-                          Problem("Entity set 'DevContext.tbEstablecimientos'  is null.");
+
+
+            return _data.GetVmEstablecimientos() != null ?
+                        View( _data.GetVmEstablecimientos()) :
+                        Problem("Entity set 'DevContext.tbEstablecimientos'  is null.");
         }
 
         // GET: TbEstablecimientos/Details/5
@@ -49,25 +55,25 @@ namespace DevControl.Controllers
         public IActionResult Create()
         {
             var prov = _context.tbProvincias.ToList();
-            var lista  = new SelectList(prov,"id","Provincia");
-            ViewData["DbProvincias"]= lista;
+            var lista = new SelectList(prov, "id", "Provincia");
+            ViewData["DbProvincias"] = lista;
 
 
             var inst = _context.tbInstitucion.ToList();
-            var list_inst  = new SelectList(inst,"Id","Institucion");
-            ViewData["DbInstitucion"]= list_inst;
+            var list_inst = new SelectList(inst, "Id", "Institucion");
+            ViewData["DbInstitucion"] = list_inst;
 
             var subs = _context.tbSubsectors.ToList();
-            var list_subs  = new SelectList(subs,"Id","Subsector");
-            ViewData["DbSubsectors"]= list_subs;
+            var list_subs = new SelectList(subs, "Id", "Subsector");
+            ViewData["DbSubsectors"] = list_subs;
 
             var cat = _context.tbCategorias.ToList();
-            var list_cat  = new SelectList(cat,"Id","Categoria");
-            ViewData["DbCategoria"]= list_cat;
+            var list_cat = new SelectList(cat, "Id", "Categoria");
+            ViewData["DbCategoria"] = list_cat;
 
             var nivel = _context.tbNivel.ToList();
-            var list_nivel  = new SelectList(nivel,"Id","Nivel");
-            ViewData["DbNivel"]= list_nivel;
+            var list_nivel = new SelectList(nivel, "Id", "Nivel");
+            ViewData["DbNivel"] = list_nivel;
             return View();
         }
 
@@ -94,6 +100,26 @@ namespace DevControl.Controllers
             {
                 return NotFound();
             }
+            var prov = _context.tbProvincias.ToList();
+            var lista = new SelectList(prov, "id", "Provincia");
+            ViewData["DbProvincias"] = lista;
+
+
+            var inst = _context.tbInstitucion.ToList();
+            var list_inst = new SelectList(inst, "Id", "Institucion");
+            ViewData["DbInstitucion"] = list_inst;
+
+            var subs = _context.tbSubsectors.ToList();
+            var list_subs = new SelectList(subs, "Id", "Subsector");
+            ViewData["DbSubsectors"] = list_subs;
+
+            var cat = _context.tbCategorias.ToList();
+            var list_cat = new SelectList(cat, "Id", "Categoria");
+            ViewData["DbCategoria"] = list_cat;
+
+            var nivel = _context.tbNivel.ToList();
+            var list_nivel = new SelectList(nivel, "Id", "Nivel");
+            ViewData["DbNivel"] = list_nivel;
 
             var tbEstablecimientos = await _context.tbEstablecimientos.FindAsync(id);
             if (tbEstablecimientos == null)
@@ -170,14 +196,14 @@ namespace DevControl.Controllers
             {
                 _context.tbEstablecimientos.Remove(tbEstablecimientos);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool TbEstablecimientosExists(int id)
         {
-          return (_context.tbEstablecimientos?.Any(e => e.Id == id)).GetValueOrDefault();
+            return (_context.tbEstablecimientos?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }

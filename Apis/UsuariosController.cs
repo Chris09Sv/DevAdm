@@ -1,6 +1,7 @@
 using System.Data;
 using Dapper;
 using DevControl.Data;
+using DevControl.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 
@@ -12,10 +13,12 @@ namespace DevControl.Apis
     {
         private readonly DevContext _context;
         private readonly IConfiguration iconfiguration;
-
-        public UsuariosController(DevContext context, IConfiguration iconfiguration)
+        private readonly IData _data;
+ 
+        public UsuariosController(DevContext context, IConfiguration iconfiguration,IData data)
         {
             _context = context;
+            _data=data;
             this.iconfiguration = iconfiguration;
         }
 

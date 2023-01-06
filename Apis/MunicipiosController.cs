@@ -1,5 +1,6 @@
 
 using DevControl.Data;
+using DevControl.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DevControl.Apis
@@ -10,8 +11,11 @@ namespace DevControl.Apis
     {
 
         private readonly DevContext _context;
-        public MunicipiosController(DevContext context)
+        private readonly IData _data;
+
+        public MunicipiosController(DevContext context, IData data)
         {
+            _data = data;
             _context = context;
         }
         [HttpGet("{id}")]
@@ -33,13 +37,13 @@ namespace DevControl.Apis
         {
             var mun = _context.tbMunicipios.Where(x => x.Id == id).ToList().SingleOrDefault();
 
-            if (mun==null)
+            if (mun == null)
             {
                 return NotFound();
             }
-            
-            
-            var municipio = _context.tbDistritos.Where(x => x.provincia+x.municipio == mun.codigo).ToList();
+
+
+            var municipio = _context.tbDistritos.Where(x => x.provincia + x.municipio == mun.codigo).ToList();
             if (municipio == null)
             {
                 return NotFound();
@@ -56,13 +60,13 @@ namespace DevControl.Apis
         {
 
             var mun = _context.tbDistritos.Where(x => x.Id == id).ToList().SingleOrDefault();
-            if (mun==null)
+            if (mun == null)
             {
                 return NotFound();
             }
 
             var pa = mun.provincia + mun.municipio + mun.codigo;
-            var municipio = _context.tbSectores.Where(x => x.provincia+x.municipio+x.distrito == pa).ToList();
+            var municipio = _context.tbSectores.Where(x => x.provincia + x.municipio + x.distrito == pa).ToList();
             if (municipio == null)
             {
                 return NotFound();
@@ -71,6 +75,16 @@ namespace DevControl.Apis
 
 
             return Ok(municipio);
+        }
+
+        [HttpGet]
+
+        public ActionResult GetCentros()
+        {
+
+
+
+            return Ok(_data.GetVmEstablecimientos());
         }
 
     }
