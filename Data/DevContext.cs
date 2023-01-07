@@ -24,7 +24,8 @@ namespace DevControl.Data
         public DbSet<TbDistrito> tbDistritos { get; set; } = default!;
         public DbSet<TbSector> tbSectores { get; set; } = default!;
         public DbSet<TbNivel> tbNivel { get; set; } = default!;
-        public DbSet<DevControl.Models.Establecimientos.vmEstablecimientos> vmEstablecimientos { get; set; } = default!;
+
+        public DbSet<TbCapacidad> tbCapacidad { get;set;} = default!;
 
 
 

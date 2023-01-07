@@ -17,9 +17,9 @@ namespace DevControl.Controllers
         private readonly IData _data;
 
 
-        public TbEstablecimientosController(DevContext context,IData data)
+        public TbEstablecimientosController(DevContext context, IData data)
         {
-            _data=data;
+            _data = data;
             _context = context;
         }
 
@@ -29,7 +29,7 @@ namespace DevControl.Controllers
 
 
             return _data.GetVmEstablecimientos() != null ?
-                        View( _data.GetVmEstablecimientos()) :
+                        View(_data.GetVmEstablecimientos()) :
                         Problem("Entity set 'DevContext.tbEstablecimientos'  is null.");
         }
 
@@ -74,6 +74,17 @@ namespace DevControl.Controllers
             var nivel = _context.tbNivel.ToList();
             var list_nivel = new SelectList(nivel, "Id", "Nivel");
             ViewData["DbNivel"] = list_nivel;
+
+            var cap = _context.tbCapacidad.ToList();
+            var list_cap = new SelectList(cap, "Id", "Capacidad");
+            ViewData["DbCap"] = list_cap;
+
+            List<SelectListItem> YesNo = new List<SelectListItem>();
+            YesNo.Add(new SelectListItem { Text = "No", Value = "0" });
+            YesNo.Add(new SelectListItem { Text = "Si", Value = "1" });
+            ViewData["DbYesNo"] = YesNo;
+
+
             return View();
         }
 
@@ -82,20 +93,46 @@ namespace DevControl.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Centro,Institucion,Categoria,Subsector,Nivel,Capacidad,Provincia,Municipio,Distrito,Sector,Area")] TbEstablecimientos tbEstablecimientos)
+        public async Task<IActionResult> Create([Bind("Id,Centro,Institucion,Categoria,Subsector,Nivel,Capacidad,Provincia,Municipio,Distrito,Sector,Area")] TbEstablecimientos input)
         {
+
+            TbEstablecimientos establecimiento = new()
+            {
+                Centro = input.Centro,
+                Institucion = input.Institucion,
+                Categoria = input.Categoria,
+                Subsector = input.Subsector,
+                Nivel = input.Nivel,
+                Capacidad = input.Capacidad,
+                Provincia = input.Provincia,
+                Municipio = input.Municipio,
+                Distrito = input.Distrito,
+                Sector = input.Sector,
+                Area = input.Area,
+                prueba = input.prueba,
+                Laboratorio = input.Laboratorio,
+                IdViepi = 0, ///input.IdViepi,
+                Sat = input.Sat,
+                Estado = 1,
+                Creacion = DateTime.Now,
+                Activacion = DateTime.Now,
+                Usuario = input.Usuario
+            };
+
             if (ModelState.IsValid)
             {
-                _context.Add(tbEstablecimientos);
+                _context.Add(establecimiento);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(tbEstablecimientos);
+            return View(establecimiento);
         }
 
         // GET: TbEstablecimientos/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
+            var tbEstablecimientos = await _context.tbEstablecimientos.FindAsync(id);
+
             if (id == null || _context.tbEstablecimientos == null)
             {
                 return NotFound();
@@ -121,7 +158,26 @@ namespace DevControl.Controllers
             var list_nivel = new SelectList(nivel, "Id", "Nivel");
             ViewData["DbNivel"] = list_nivel;
 
-            var tbEstablecimientos = await _context.tbEstablecimientos.FindAsync(id);
+
+            var mun = _context.tbMunicipios.Where(x => x.Id == tbEstablecimientos.Municipio).ToList();
+            var list_mun = new SelectList(mun, "Id", "municipio");
+            ViewData["DbMun"] = list_mun;
+
+
+            var dm = _context.tbDistritos.Where(x => x.Id == tbEstablecimientos.Distrito).ToList();
+            var list_dm = new SelectList(dm, "Id", "distrito");
+            ViewData["DbDm"] = list_dm;
+
+
+
+            var se = _context.tbSectores.Where(x => x.Id == tbEstablecimientos.Sector).ToList();
+            var list_se = new SelectList(se, "Id", "barrio");
+            ViewData["DbSe"] = list_se;
+            //var mun = 
+            //var list_nivel = new SelectList(nivel, "Id", "Nivel");
+            //ViewData["DbMun"] = list_nivel;
+
+
             if (tbEstablecimientos == null)
             {
                 return NotFound();

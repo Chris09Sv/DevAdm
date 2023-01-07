@@ -59,6 +59,7 @@ namespace DevControl.Services
         {
             var sql = @"
                             select
+                                    e.id,
                                     e.Centro, i.Institucion, c.Categoria, sc.Subsector, e.Nivel, CONCAT_WS(' ', t.codigo, t.Provincia) as Provincia, CONCAT_WS(' ',m.codigo,m.municipio) as Municipio, d.Distrito, s.barrio as Sector,
                                     ' ' as Area,
                                     e.prueba,
