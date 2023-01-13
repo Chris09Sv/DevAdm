@@ -25,6 +25,11 @@
                 <input asp-for="Centro" class="form-control" />
                 <span asp-validation-for="Centro" class="text-danger"></span>
             </div>
+            <div class="form-group">
+                <label asp-for="Capacidad" class="control-label"></label>
+                <input asp-for="Capacidad" class="form-control" />
+                <span asp-validation-for="Capacidad" class="text-danger"></span>
+            </div>
             <div class="form-group ">
                 <label asp-for="Institucion" class="control-label"></label>
                 @Html.DropDownListFor(x => x.Institucion, (IEnumerable
@@ -75,7 +80,7 @@
 
                         <div class="form-group">
                 <label asp-for="Seccion" class="control-label"></label>
-                <select asp-for="Seccion" class="form-control" id="distrito-dropdown" onchange="fcSec()"> </select>
+                <input asp-for="Seccion" class="form-control" id="distrito-dropdown" onchange="fcSec()"> </select>
                 <span asp-validation-for="Seccion" class="text-danger"></span>
             </div>
             <div class="form-group">

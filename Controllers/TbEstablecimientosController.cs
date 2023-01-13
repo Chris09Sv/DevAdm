@@ -75,7 +75,7 @@ namespace DevControl.Controllers
             var list_nivel = new SelectList(nivel, "Id", "Nivel");
             ViewData["DbNivel"] = list_nivel;
 
-            var cap = _context.tbCapacidad.Where(x =>x.Capacidad!="No procesa").ToList();
+            var cap = _context.tbCapacidad.Where(x => x.Capacidad != "No procesa").ToList();
             var list_cap = new SelectList(cap, "Id", "Capacidad");
             ViewData["DbCap"] = list_cap;
 
@@ -93,7 +93,7 @@ namespace DevControl.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Centro,Institucion,Categoria,Subsector,Nivel,Capacidad,Provincia,Municipio,Distrito,Sector,Area")] TbEstablecimientos input)
+        public async Task<IActionResult> Create( TbEstablecimientos input)
         {
 
             TbEstablecimientos establecimiento = new()
@@ -103,7 +103,7 @@ namespace DevControl.Controllers
                 Categoria = input.Categoria,
                 Subsector = input.Subsector,
                 Nivel = input.Nivel,
-                Capacidad = input.Capacidad,
+                Capacidad = 0, // input.Capacidad,
                 Provincia = input.Provincia,
                 Municipio = input.Municipio,
                 Distrito = input.Distrito,
@@ -173,6 +173,16 @@ namespace DevControl.Controllers
             var se = _context.tbSectores.Where(x => x.Id == tbEstablecimientos.Sector).ToList();
             var list_se = new SelectList(se, "Id", "barrio");
             ViewData["DbSe"] = list_se;
+
+            var cap = _context.tbCapacidad.Where(x => x.Capacidad != "No procesa").ToList();
+            var list_cap = new SelectList(cap, "Id", "Capacidad");
+            ViewData["DbCap"] = list_cap;
+
+            List<SelectListItem> YesNo = new List<SelectListItem>();
+            YesNo.Add(new SelectListItem { Text = "No", Value = "0" });
+            YesNo.Add(new SelectListItem { Text = "Si", Value = "1" });
+            ViewData["DbYesNo"] = YesNo;
+
             //var mun = 
             //var list_nivel = new SelectList(nivel, "Id", "Nivel");
             //ViewData["DbMun"] = list_nivel;
@@ -190,7 +200,7 @@ namespace DevControl.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Centro,Institucion,Categoria,Subsector,Nivel,Capacidad,Provincia,Municipio,Distrito,Sector,Area")] TbEstablecimientos tbEstablecimientos)
+        public async Task<IActionResult> Edit(int id,  TbEstablecimientos tbEstablecimientos)
         {
             if (id != tbEstablecimientos.Id)
             {

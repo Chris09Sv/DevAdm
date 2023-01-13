@@ -105,7 +105,7 @@ namespace DevControl.Migrations
                     b.Property<int>("Municipio")
                         .HasColumnType("int");
 
-                    b.Property<int>("Nivel")
+                    b.Property<int?>("Nivel")
                         .HasColumnType("int");
 
                     b.Property<int>("Provincia")

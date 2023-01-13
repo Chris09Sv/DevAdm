@@ -1,115 +1,39 @@
-﻿@* @model DevControl.Models.Establecimientos.TbEstablecimientos
-
-    @{
-    ViewData["Title"] = "Edit";
-    }
-
-    <h1>Edit</h1>
-
-    <h4>TbEstablecimientos</h4>
-    <hr />
-    <div class="row">
-    <div class="col-md-4">
-    <form asp-action="Edit">
-    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-    <input type="hidden" asp-for="Id" />
-    <div class="form-group">
-    <label asp-for="Centro" class="control-label"></label>
-    <input asp-for="Centro" class="form-control" />
-    <span asp-validation-for="Centro" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-    <label asp-for="Institucion" class="control-label"></label>
-    <input asp-for="Institucion" class="form-control" />
-    <span asp-validation-for="Institucion" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-    <label asp-for="Categoria" class="control-label"></label>
-    <input asp-for="Categoria" class="form-control" />
-    <span asp-validation-for="Categoria" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-    <label asp-for="Subsector" class="control-label"></label>
-    <input asp-for="Subsector" class="form-control" />
-    <span asp-validation-for="Subsector" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-    <label asp-for="Nivel" class="control-label"></label>
-    <input asp-for="Nivel" class="form-control" />
-    <span asp-validation-for="Nivel" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-    <label asp-for="Capacidad" class="control-label"></label>
-    <input asp-for="Capacidad" class="form-control" />
-    <span asp-validation-for="Capacidad" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-    <label asp-for="Provincia" class="control-label"></label>
-    <input asp-for="Provincia" class="form-control" />
-    <span asp-validation-for="Provincia" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-    <label asp-for="Municipio" class="control-label"></label>
-    <input asp-for="Municipio" class="form-control" />
-    <span asp-validation-for="Municipio" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-    <label asp-for="Distrito" class="control-label"></label>
-    <input asp-for="Distrito" class="form-control" />
-    <span asp-validation-for="Distrito" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-    <label asp-for="Sector" class="control-label"></label>
-    <input asp-for="Sector" class="form-control" />
-    <span asp-validation-for="Sector" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-    <label asp-for="Area" class="control-label"></label>
-    <input asp-for="Area" class="form-control" />
-    <span asp-validation-for="Area" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-    <input type="submit" value="Save" class="btn btn-primary" />
-    </div>
-    </form>
-    </div>
-    </div>
-
-    <div>
-    <a asp-action="Index">Back to List</a>
-    </div>
-
-    @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-    } *@
-
-
-@model DevControl.Models.Establecimientos.TbEstablecimientos
+﻿@model DevControl.Models.Establecimientos.TbEstablecimientos
 
 @{
+
     ViewData["Title"] = "Edit";
 }
-
-<h1>Create</h1>
 
 <h4>TbEstablecimientos</h4>
 <hr />
 
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
+<div class="form-row">
+    <div class="row">
+        <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Centro" class="control-label"></label>
                 <input asp-for="Centro" class="form-control" />
                 <span asp-validation-for="Centro" class="text-danger"></span>
             </div>
+            @* <div class="form-group ">
+            <label asp-for="Institucion" class="control-label"></label>
+            @Html.DropDownListFor(x => x.Institucion, (IEnumerable
+            <SelectListItem>)ViewData["DbInstitucion"], "-- Select --", htmlAttributes: new { @class =
+            "form-control",id="institucion" }) <span asp-validation-for="Institucion" class="text-danger"></span>
+
+            <span asp-validation-for="Institucion" class="text-danger"></span>
+            </div> *@
+            <div class="form-group">
+                <label asp-for="Capacidad" class="control-label"></label>
+                <input asp-for="Capacidad" class="form-control" />
+                <span asp-validation-for="Capacidad" class="text-danger"></span>
+            </div>
+            <div class="form-group">
             <div class="form-group">
                 <label asp-for="Institucion" class="control-label"></label>
-                @Html.DropDownListFor(x => x.Institucion, (IEnumerable
-                <SelectListItem>)ViewData["DbInstitucion"], "-- Select --", htmlAttributes: new { @class =
-                "form-control",id="institucion" }) <span asp-validation-for="Institucion" class="text-danger"></span>
-
+                <input asp-for="Institucion" class="form-control" />
                 <span asp-validation-for="Institucion" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -130,20 +54,16 @@
                 <label asp-for="Nivel" class="control-label"></label>
                 @Html.DropDownListFor(x => x.Nivel, (IEnumerable
                 <SelectListItem>)ViewData["DbNivel"], "-- Select --", htmlAttributes: new { @class =
-                "form-control",id="Nivel" }) <span asp-validation-for="Nivel" class="text-danger"></span> <span
-                    asp-validation-for="Nivel" class="text-danger"></span>
+                "form-control",id="Nivel" })
+                <span asp-validation-for="Nivel" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Capacidad" class="control-label"></label>
-                <input asp-for="Capacidad" class="form-control" />
-                <span asp-validation-for="Capacidad" class="text-danger"></span>
-            </div>
+
             <div class="form-group">
                 <label asp-for="Provincia" class="control-label"></label>
                 @Html.DropDownListFor(x => x.Provincia, (IEnumerable
                 <SelectListItem>)ViewData["DbProvincias"], "-- Select --", htmlAttributes: new { @class =
                 "form-control",id="prov", onchange = "myFunc()" }) <span asp-validation-for="Provincia"
-                    class="text-danger"></span>
+                                                                         class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Municipio" class="control-label"></label>
@@ -163,10 +83,9 @@
             <div class="form-group">
                 <label asp-for="Sector" class="control-label"></label>
                 @Html.DropDownListFor(x => x.Sector, (IEnumerable <SelectListItem>)ViewData["DbSe"], "-- Select --",
-                htmlAttributes: new { @class ="form-control",id="sector-dropdown", onchange = "fcSec()" })
+                htmlAttributes: new { @class ="form-control",id="sector-dropdown" })
 
-@*                <select asp-for="Sector" class="form-control" id="sector-dropdown"> </select>
-*@                <span asp-validation-for="Sector" class="text-danger"></span>
+                <span asp-validation-for="Sector" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Area" class="control-label"></label>
@@ -183,12 +102,28 @@
 
                     <div class="form-group">
                         <label asp-for="Laboratorio" class="control-label"></label>
-                        <input asp-for="Laboratorio" class="form-control" />
+
+                        @Html.DropDownListFor(x => x.Laboratorio, (IEnumerable
+                        <SelectListItem>)ViewData["DbYesNo"], "-- Select --", htmlAttributes: new { @class =
+                        "form-control",id="lab" , onchange="fcLab()"})
+
                         <span asp-validation-for="Laboratorio" class="text-danger"></span>
+
+
+                    </div>
+
+                    <div class="form-group" style="display: none;" id="dvCap">
+                        <label asp-for="Capacidad" class="control-label"></label>
+                        @Html.DropDownListFor(x => x.Capacidad, (IEnumerable
+                        <SelectListItem>)ViewData["DbCap"], "-- Select --", htmlAttributes: new { @class =
+                        "form-control",id="Cap" })
+                        <span asp-validation-for="Capacidad" class="text-danger"></span>
                     </div>
                     <div class="form-group">
-                        <input type="submit" value="Create" class="btn btn-primary" />
+                        <input type="submit" value="Save" class="btn btn-primary" />
                     </div>
+                    <hr />
+
         </form>
     </div>
 </div>
@@ -198,143 +133,163 @@
 </div>
 
 @section Scripts {
-@{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-
-<script type="text/javascript">
-
-
-    function myFunc() {
-        alert('hi')
-        let dropdown = document.getElementById('municipio-dropdown');
-        dropdown.length = 0;
-
-        let defaultoption = document.createElement('option');
-        defaultoption.text = 'seleccione un municipio';
-
-        dropdown.add(defaultoption);
-        dropdown.selectedindex = 0;
-        var data = document.getElementById("prov").value;
-        const url = '/api/municipios/GetMunicipios/' + data;
-
-        fetch(url)
-            .then(
-                function (response) {
-                    if (response.status !== 200) {
-                        console.warn('looks like there was a problem. status code: ' +
-                            response.status);
-                        return;
-                    }
-
-                    // examine the text in the response  
-                    response.json().then(function (data) {
-                        let option;
-
-                        for (let i = 0; i < data.length; i++) {
-                            option = document.createElement('option');
-                            option.text = data[i].municipio;
-                            option.value = data[i].id;
-                            dropdown.add(option);
-                        }
-                    });
-                }
-            )
-            .catch(function (err) {
-                console.error('fetch error -', err);
-            });
-
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
 
-    function fcDm() {
-        alert('hi')
-        let dropdown = document.getElementById('distrito-dropdown');
-        dropdown.length = 0;
-
-        let defaultoption = document.createElement('option');
-        defaultoption.text = 'Seleccione un Distrito Municipal';
-
-        dropdown.add(defaultoption);
-        dropdown.selectedindex = 0;
-        var data = document.getElementById("municipio-dropdown").value;
-        const url = '/api/municipios/GetDistritos/' + data;
-
-        fetch(url)
-            .then(
-                function (response) {
-                    if (response.status !== 200) {
-                        console.warn('looks like there was a problem. status code: ' +
-                            response.status);
-                        return;
-                    }
-
-                    // examine the text in the response  
-                    response.json().then(function (data) {
-                        let option;
-
-                        for (let i = 0; i < data.length; i++) {
-                            option = document.createElement('option');
-                            option.text = data[i].distrito;
-                            option.value = data[i].id;
-                            dropdown.add(option);
-                        }
-                    });
+    <script type="text/javascript">
+        function fcLab() {
+            y = document.getElementById("lab")
+            x = document.getElementById("dvCap")
+            if (y.value == 1) {
+                if (x.style.display === "none") {
+                    x.style.display = "block";
+                } else {
+                    x.style.display = "none";
+                    document.getElementById("Cap").value = null
                 }
-            )
-            .catch(function (err) {
-                console.error('fetch error -', err);
-            });
+            }
+            else {
+                x.style.display = "none";
+                document.getElementById("Cap").value = 1
 
-    }
+            }
+
+        }
 
 
+        function myFunc() {
+            alert('hi')
+            let dropdown = document.getElementById('municipio-dropdown');
+            dropdown.length = 0;
 
-    function fcSec() {
-        alert('hi')
-        let dropdown = document.getElementById('sector-dropdown');
-        dropdown.length = 0;
+            let defaultoption = document.createElement('option');
+            defaultoption.text = 'seleccione un municipio';
 
-        let defaultoption = document.createElement('option');
-        defaultoption.text = 'Seleccione un Barrio';
+            dropdown.add(defaultoption);
+            dropdown.selectedindex = 0;
+            var data = document.getElementById("prov").value;
+            const url = '/api/municipios/GetMunicipios/' + data;
 
-        dropdown.add(defaultoption);
-        dropdown.selectedindex = 0;
-        var data = document.getElementById("distrito-dropdown").value;
-        const url = '/api/municipios/GetBarrio/' + data;
-
-        fetch(url)
-            .then(
-                function (response) {
-                    if (response.status !== 200) {
-                        console.warn('looks like there was a problem. status code: ' +
-                            response.status);
-                        return;
-                    }
-
-                    // examine the text in the response  
-                    response.json().then(function (data) {
-                        let option;
-
-                        for (let i = 0; i < data.length; i++) {
-                            option = document.createElement('option');
-                            option.text = data[i].barrio;
-                            option.value = data[i].id;
-                            dropdown.add(option);
+            fetch(url)
+                .then(
+                    function (response) {
+                        if (response.status !== 200) {
+                            console.warn('looks like there was a problem. status code: ' +
+                                response.status);
+                            return;
                         }
-                    });
-                }
-            )
-            .catch(function (err) {
-                console.error('fetch error -', err);
-            });
 
-    }
+                        // examine the text in the response
+                        response.json().then(function (data) {
+                            let option;
+
+                            for (let i = 0; i < data.length; i++) {
+                                option = document.createElement('option');
+                                option.text = data[i].municipio;
+                                option.value = data[i].id;
+                                dropdown.add(option);
+                            }
+                        });
+                    }
+                )
+                .catch(function (err) {
+                    console.error('fetch error -', err);
+                });
+
+        }
+
+        function fcDm() {
+            alert('hi')
+            let dropdown = document.getElementById('distrito-dropdown');
+            dropdown.length = 0;
+
+            let defaultoption = document.createElement('option');
+            defaultoption.text = 'Seleccione un Distrito Municipal';
+
+            dropdown.add(defaultoption);
+            dropdown.selectedindex = 0;
+            var data = document.getElementById("municipio-dropdown").value;
+            const url = '/api/municipios/GetDistritos/' + data;
+
+            fetch(url)
+                .then(
+                    function (response) {
+                        if (response.status !== 200) {
+                            console.warn('looks like there was a problem. status code: ' +
+                                response.status);
+                            return;
+                        }
+
+                        // examine the text in the response
+                        response.json().then(function (data) {
+                            let option;
+
+                            for (let i = 0; i < data.length; i++) {
+                                option = document.createElement('option');
+                                option.text = data[i].distrito;
+                                option.value = data[i].id;
+                                dropdown.add(option);
+                            }
+                        });
+                    }
+                )
+                .catch(function (err) {
+                    console.error('fetch error -', err);
+                });
+
+        }
 
 
-    //}
+
+        function fcSec() {
+            alert('hi')
+            let dropdown = document.getElementById('sector-dropdown');
+            dropdown.length = 0;
+
+            let defaultoption = document.createElement('option');
+            defaultoption.text = 'Seleccione un Barrio';
+
+            dropdown.add(defaultoption);
+            dropdown.selectedindex = 0;
+            var data = document.getElementById("distrito-dropdown").value;
+            const url = '/api/municipios/GetBarrio/' + data;
+
+            fetch(url)
+                .then(
+                    function (response) {
+                        if (response.status !== 200) {
+                            console.warn('looks like there was a problem. status code: ' +
+                                response.status);
+                            return;
+                        }
+
+                        // examine the text in the response
+                        response.json().then(function (data) {
+                            let option;
+
+                            for (let i = 0; i < data.length; i++) {
+                                option = document.createElement('option');
+                                option.text = data[i].barrio;
+                                option.value = data[i].id;
+                                dropdown.add(option);
+                            }
+                        });
+                    }
+                )
+                .catch(function (err) {
+                    console.error('fetch error -', err);
+                });
+
+        }
+
+
+            //}
 
 
 
 
-</script>
+    </script>
 
 
 }
