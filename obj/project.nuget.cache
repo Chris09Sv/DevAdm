@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "aUnve23U6y63SHFvUIYilAC/Tb3IHC11RKNmO74rM9eXH+9m3HDNTyShtqQtv2cl7onwfmWDCV9n3xcyj0A08Q==",
+  "dgSpecHash": "SfN9dYHHKswb7V7Qu9L/KBaoWRC86JaLwA1zg5eLodQjUcd2d/C8KvTS1XtRd12XfitPOaaGjjD1lHV2vcGjtA==",
   "success": true,
-  "projectFilePath": "D:\\Recursos Tic\\EN DESARROLLO\\webapp\\DevControl\\DevControl.csproj",
+  "projectFilePath": "C:\\Users\\ddesarrollo\\source\\repos\\DevAdm\\DevControl.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\ddesarrollo\\.nuget\\packages\\azure.core\\1.24.0\\azure.core.1.24.0.nupkg.sha512",
     "C:\\Users\\ddesarrollo\\.nuget\\packages\\azure.identity\\1.6.0\\azure.identity.1.6.0.nupkg.sha512",

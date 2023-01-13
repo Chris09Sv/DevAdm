@@ -26,6 +26,7 @@ namespace DevControl.Data
         public DbSet<TbNivel> tbNivel { get; set; } = default!;
 
         public DbSet<TbCapacidad> tbCapacidad { get;set;} = default!;
+        public DbSet<TbSecciones> tbSecciones { get;set;} = default!;
 
 
 

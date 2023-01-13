@@ -75,7 +75,7 @@ namespace DevControl.Controllers
             var list_nivel = new SelectList(nivel, "Id", "Nivel");
             ViewData["DbNivel"] = list_nivel;
 
-            var cap = _context.tbCapacidad.ToList();
+            var cap = _context.tbCapacidad.Where(x =>x.Capacidad!="No procesa").ToList();
             var list_cap = new SelectList(cap, "Id", "Capacidad");
             ViewData["DbCap"] = list_cap;
 

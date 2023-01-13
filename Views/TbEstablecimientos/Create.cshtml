@@ -1,6 +1,13 @@
 ﻿@model DevControl.Models.Establecimientos.TbEstablecimientos
 
 @{
+
+
+
+
+
+
+
     ViewData["Title"] = "Create";
 }
 
@@ -65,6 +72,12 @@
                 <select asp-for="Distrito" class="form-control" id="distrito-dropdown" onchange="fcSec()"> </select>
                 <span asp-validation-for="Distrito" class="text-danger"></span>
             </div>
+
+                        <div class="form-group">
+                <label asp-for="Seccion" class="control-label"></label>
+                <select asp-for="Seccion" class="form-control" id="distrito-dropdown" onchange="fcSec()"> </select>
+                <span asp-validation-for="Seccion" class="text-danger"></span>
+            </div>
             <div class="form-group">
                 <label asp-for="Sector" class="control-label"></label>
                 <select asp-for="Sector" class="form-control" id="sector-dropdown"> </select>
@@ -88,12 +101,14 @@
 
                         @Html.DropDownListFor(x => x.Laboratorio, (IEnumerable
                         <SelectListItem>)ViewData["DbYesNo"], "-- Select --", htmlAttributes: new { @class =
-                        "form-control",id="lab" })
-                        
+                        "form-control",id="lab" , onchange="fcLab()"})
+
                         <span asp-validation-for="Laboratorio" class="text-danger"></span>
+
+
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group" style="display: none;" id="dvCap">
                         <label asp-for="Capacidad" class="control-label"></label>
                         @Html.DropDownListFor(x => x.Capacidad, (IEnumerable
                         <SelectListItem>)ViewData["DbCap"], "-- Select --", htmlAttributes: new { @class =
@@ -117,6 +132,24 @@
 @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 
 <script type="text/javascript">
+    function fcLab() {
+        y = document.getElementById("lab")
+        x = document.getElementById("dvCap")
+        if (y.value == 1) {
+            if (x.style.display === "none") {
+                x.style.display = "block";
+            } else {
+                x.style.display = "none";
+                document.getElementById("Cap").value = null
+            }
+        }
+        else {
+            x.style.display = "none";
+            document.getElementById("Cap").value = 1
+
+        }
+
+    }
 
 
     function myFunc() {

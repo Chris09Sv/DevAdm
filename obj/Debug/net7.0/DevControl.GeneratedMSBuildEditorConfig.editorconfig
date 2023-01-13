@@ -9,65 +9,65 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = DevControl
 build_property.RootNamespace = DevControl
-build_property.ProjectDir = D:\Recursos Tic\EN DESARROLLO\webapp\DevControl\
+build_property.ProjectDir = c:\Users\ddesarrollo\source\repos\DevAdm\
 build_property.RazorLangVersion = 7.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = D:\Recursos Tic\EN DESARROLLO\webapp\DevControl
+build_property.MSBuildProjectDirectory = c:\Users\ddesarrollo\source\repos\DevAdm
 build_property._RazorSourceGeneratorDebug = 
 
-[D:/Recursos Tic/EN DESARROLLO/webapp/DevControl/Views/Home/Index.cshtml]
+[c:/Users/ddesarrollo/source/repos/DevAdm/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Recursos Tic/EN DESARROLLO/webapp/DevControl/Views/Home/Privacy.cshtml]
+[c:/Users/ddesarrollo/source/repos/DevAdm/Views/Home/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Recursos Tic/EN DESARROLLO/webapp/DevControl/Views/Sat/Index.cshtml]
+[c:/Users/ddesarrollo/source/repos/DevAdm/Views/Sat/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2F0XEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Recursos Tic/EN DESARROLLO/webapp/DevControl/Views/Sat/List.cshtml]
+[c:/Users/ddesarrollo/source/repos/DevAdm/Views/Sat/List.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2F0XExpc3QuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Recursos Tic/EN DESARROLLO/webapp/DevControl/Views/Shared/Error.cshtml]
+[c:/Users/ddesarrollo/source/repos/DevAdm/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Recursos Tic/EN DESARROLLO/webapp/DevControl/Views/Shared/_ValidationScriptsPartial.cshtml]
+[c:/Users/ddesarrollo/source/repos/DevAdm/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Recursos Tic/EN DESARROLLO/webapp/DevControl/Views/TbEstablecimientos/Create.cshtml]
+[c:/Users/ddesarrollo/source/repos/DevAdm/Views/TbEstablecimientos/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGJFc3RhYmxlY2ltaWVudG9zXENyZWF0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Recursos Tic/EN DESARROLLO/webapp/DevControl/Views/TbEstablecimientos/Delete.cshtml]
+[c:/Users/ddesarrollo/source/repos/DevAdm/Views/TbEstablecimientos/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGJFc3RhYmxlY2ltaWVudG9zXERlbGV0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Recursos Tic/EN DESARROLLO/webapp/DevControl/Views/TbEstablecimientos/Details.cshtml]
+[c:/Users/ddesarrollo/source/repos/DevAdm/Views/TbEstablecimientos/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGJFc3RhYmxlY2ltaWVudG9zXERldGFpbHMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Recursos Tic/EN DESARROLLO/webapp/DevControl/Views/TbEstablecimientos/Edit.cshtml]
+[c:/Users/ddesarrollo/source/repos/DevAdm/Views/TbEstablecimientos/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGJFc3RhYmxlY2ltaWVudG9zXEVkaXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Recursos Tic/EN DESARROLLO/webapp/DevControl/Views/TbEstablecimientos/Index.cshtml]
+[c:/Users/ddesarrollo/source/repos/DevAdm/Views/TbEstablecimientos/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGJFc3RhYmxlY2ltaWVudG9zXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Recursos Tic/EN DESARROLLO/webapp/DevControl/Views/_ViewImports.cshtml]
+[c:/Users/ddesarrollo/source/repos/DevAdm/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Recursos Tic/EN DESARROLLO/webapp/DevControl/Views/_ViewStart.cshtml]
+[c:/Users/ddesarrollo/source/repos/DevAdm/Views/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Recursos Tic/EN DESARROLLO/webapp/DevControl/Views/Shared/_Layout.cshtml]
+[c:/Users/ddesarrollo/source/repos/DevAdm/Views/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = b-dub0xaa4j4

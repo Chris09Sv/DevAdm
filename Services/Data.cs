@@ -43,7 +43,9 @@ namespace DevControl.Services
                                 u.uname=a.uname
                                     left JOIN tbcentros  t
                                     on 
-                                t.Id=a.Centro";
+                                t.Id=a.Centro
+                                
+                                ";
             //  var customers=""'
 
             using (IDbConnection connection = new SqlConnection(iconfiguration.GetConnectionString("DataSof")))
@@ -74,10 +76,10 @@ namespace DevControl.Services
                                     inner JOIN tbMunicipios m
                                     on 
                                 m.Id=e.Municipio
-                                    inner JOIN tbDistritos d
+                                    left JOIN tbDistritos d
                                     on 
                                 d.Id=e.Distrito
-                                    inner JOIN tbSectores s
+                                    left JOIN tbSectores s
                                     on 
                                 s.Id=e.Sector
                                     inner JOIN tbInstitucion i

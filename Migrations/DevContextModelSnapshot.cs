@@ -64,13 +64,14 @@ namespace DevControl.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<DateTime>("Activacion")
+                    b.Property<DateTime?>("Activacion")
                         .HasColumnType("datetime2");
 
                     b.Property<int?>("Area")
                         .HasColumnType("int");
 
                     b.Property<int?>("Capacidad")
+                        .IsRequired()
                         .HasColumnType("int");
 
                     b.Property<int>("Categoria")
@@ -80,7 +81,7 @@ namespace DevControl.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("Creacion")
+                    b.Property<DateTime?>("Creacion")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("Distrito")
@@ -112,6 +113,9 @@ namespace DevControl.Migrations
 
                     b.Property<string>("Sat")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Seccion")
+                        .HasColumnType("int");
 
                     b.Property<int?>("Sector")
                         .HasColumnType("int");
@@ -254,6 +258,43 @@ namespace DevControl.Migrations
                     b.HasKey("id");
 
                     b.ToTable("tbProvincias");
+                });
+
+            modelBuilder.Entity("DevControl.Models.TbSecciones", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("cod_one_dm")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("cod_one_mu")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("cod_one_pr")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("cod_one_se")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("nombreone")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("user")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("tbSecciones");
                 });
 
             modelBuilder.Entity("DevControl.Models.TbSector", b =>

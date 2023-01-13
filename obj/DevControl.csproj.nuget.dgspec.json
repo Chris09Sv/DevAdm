@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Recursos Tic\\EN DESARROLLO\\webapp\\DevControl\\DevControl.csproj": {}
+    "C:\\Users\\ddesarrollo\\source\\repos\\DevAdm\\DevControl.csproj": {}
   },
   "projects": {
-    "D:\\Recursos Tic\\EN DESARROLLO\\webapp\\DevControl\\DevControl.csproj": {
+    "C:\\Users\\ddesarrollo\\source\\repos\\DevAdm\\DevControl.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Recursos Tic\\EN DESARROLLO\\webapp\\DevControl\\DevControl.csproj",
+        "projectUniqueName": "C:\\Users\\ddesarrollo\\source\\repos\\DevAdm\\DevControl.csproj",
         "projectName": "DevControl",
-        "projectPath": "D:\\Recursos Tic\\EN DESARROLLO\\webapp\\DevControl\\DevControl.csproj",
+        "projectPath": "C:\\Users\\ddesarrollo\\source\\repos\\DevAdm\\DevControl.csproj",
         "packagesPath": "C:\\Users\\ddesarrollo\\.nuget\\packages\\",
-        "outputPath": "D:\\Recursos Tic\\EN DESARROLLO\\webapp\\DevControl\\obj\\",
+        "outputPath": "C:\\Users\\ddesarrollo\\source\\repos\\DevAdm\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\ddesarrollo\\AppData\\Roaming\\NuGet\\NuGet.Config",
