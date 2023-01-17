@@ -5,6 +5,7 @@ using DevControl.Models;
 using DevControl.Models.Establecimientos;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
+using MySql.Data.MySqlClient;
 
 namespace DevControl.Services
 {
@@ -28,6 +29,17 @@ namespace DevControl.Services
             }
 
         }
+
+        public List<T> LoadDataVp<T, U>(string sql, U parameters, string connectionString)
+        {
+            using (IDbConnection connection = new MySqlConnection(connectionString))
+            {
+                List<T> rows = connection.Query<T>(sql, parameters).ToList();
+                return rows;
+            }
+
+        }
+
         public IEnumerable<UsuariosViewModel> GetTbUsuarios()
         {
             var sql = @"SELECT
@@ -91,7 +103,7 @@ namespace DevControl.Services
                                     inner JOIN tbSubsectors sc
                                     on 
                                 sc.Id=e.Subsector
-            
+                                
                                 
                                 ";
             //  var customers=""'
@@ -124,8 +136,10 @@ namespace DevControl.Services
 
         }
 
-
-
-
+        public void AddEstablecimiento(TbEstablecimientos tbEstablecimientos)
+        {
+            
+            
+        }
     }
 }
