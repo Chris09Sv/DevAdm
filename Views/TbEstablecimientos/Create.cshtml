@@ -8,6 +8,14 @@
 
 
 
+
+
+
+
+
+
+
+
     ViewData["Title"] = "Create";
 }
 
@@ -25,11 +33,7 @@
                 <input asp-for="Centro" class="form-control" />
                 <span asp-validation-for="Centro" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Capacidad" class="control-label"></label>
-                <input asp-for="Capacidad" class="form-control" />
-                <span asp-validation-for="Capacidad" class="text-danger"></span>
-            </div>
+
             <div class="form-group ">
                 <label asp-for="Institucion" class="control-label"></label>
                 @Html.DropDownListFor(x => x.Institucion, (IEnumerable
@@ -78,7 +82,7 @@
                 <span asp-validation-for="Distrito" class="text-danger"></span>
             </div>
 
-                        <div class="form-group">
+            <div class="form-group">
                 <label asp-for="Seccion" class="control-label"></label>
                 <input asp-for="Seccion" class="form-control" id="distrito-dropdown" onchange="fcSec()"> </select>
                 <span asp-validation-for="Seccion" class="text-danger"></span>
@@ -93,12 +97,7 @@
                 <input asp-for="Area" class="form-control" />
                 <span asp-validation-for="Area" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <div class="form-group">
-                    <label asp-for="prueba" class="control-label"></label>
-                    <input asp-for="prueba" class="form-control" />
-                    <span asp-validation-for="prueba" class="text-danger"></span>
-                </div>
+
                 <div class="form-group">
 
                     <div class="form-group">
@@ -114,11 +113,11 @@
                     </div>
 
                     <div class="form-group" style="display: none;" id="dvCap">
-                        <label asp-for="Capacidad" class="control-label"></label>
-                        @Html.DropDownListFor(x => x.Capacidad, (IEnumerable
+                        <label asp-for="prueba" class="control-label"></label>
+                        @Html.DropDownListFor(x => x.prueba, (IEnumerable
                         <SelectListItem>)ViewData["DbCap"], "-- Select --", htmlAttributes: new { @class =
                         "form-control",id="Cap" })
-                        <span asp-validation-for="Capacidad" class="text-danger"></span>
+                        <span asp-validation-for="prueba" class="text-danger"></span>
                     </div>
                     <div class="form-group">
                         <input type="submit" value="Create" class="btn btn-primary" />

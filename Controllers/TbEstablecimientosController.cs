@@ -119,7 +119,7 @@ namespace DevControl.Controllers
                 Usuario = input.Usuario
             };
 
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 _context.Add(establecimiento);
                 await _context.SaveChangesAsync();
