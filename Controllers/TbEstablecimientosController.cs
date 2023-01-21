@@ -118,6 +118,7 @@ namespace DevControl.Controllers
                 Activacion = DateTime.Now,
                 Usuario = input.Usuario
             };
+           _data. AddEstablecimiento(establecimiento);
 
             if (!ModelState.IsValid)
             {

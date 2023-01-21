@@ -15,7 +15,7 @@ namespace DevControl.Data
         }
 
         public DbSet<DevControl.Models.UsuariosViewModel> UsuariosViewModel { get; set; } = default!;
-        public DbSet<TbCategoria> tbCategorias { get; set; } = default!;
+        public DbSet<TbCategoria> tbCategorias { get; set; } 
         public DbSet<TbInstitucion> tbInstitucion { get; set; } = default!;
         public DbSet<TbSubsector> tbSubsectors { get; set; } = default!;
         public DbSet<TbEstablecimientos> tbEstablecimientos { get; set; } = default!;

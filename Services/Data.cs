@@ -3,6 +3,7 @@ using Dapper;
 using DevControl.Data;
 using DevControl.Models;
 using DevControl.Models.Establecimientos;
+using DevControl.Models.Viepi;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
 using MySql.Data.MySqlClient;
@@ -69,7 +70,7 @@ namespace DevControl.Services
             };
         }
 
-    public IEnumerable<vmEstablecimientos> GetVmEstablecimientos()
+        public IEnumerable<vmEstablecimientos> GetVmEstablecimientos()
         {
             var sql = @"
                             select
@@ -138,8 +139,39 @@ namespace DevControl.Services
 
         public void AddEstablecimiento(TbEstablecimientos tbEstablecimientos)
         {
-            
-            
+
+            var cat = _context.tbCategorias.Where(x => x.Id == tbEstablecimientos.Categoria).SingleOrDefault();
+            var Qtipo = "select * from tipoesta where idi=" + tbEstablecimientos.Institucion + " and nombre='" + cat.Categoria + "'";
+
+            var tipo = LoadDataVp<tipoesta, dynamic>(Qtipo, new { }, iconfiguration.GetConnectionString("DataViepi")).SingleOrDefault();
+            var Qgeo = @"SELECT idadm1,idadm2
+                                from DevAdm.dbo.tbMunicipios t 
+                                inner JOIN viepi.dbo.cntry_adm2 c 
+                                on 
+                                c.Provincia+c.Municipio collate SQL_Latin1_General_CP1_CI_AS = t.codigo
+                                where id=" + tbEstablecimientos.Municipio;
+            var geo = LoadData<cntry_adm, dynamic>(Qgeo, new { }, iconfiguration.GetConnectionString("DevControlContext")).SingleOrDefault();
+
+            var tipoesta = tipo.idt;
+            var i = tbEstablecimientos.Institucion;
+            var x = 0;
+
+            vEstablecimientos est = new()
+            {
+                nombre = tbEstablecimientos.Centro,
+                institucion = tbEstablecimientos.Institucion,
+                nivel1 = x,
+                nivel2 = x,
+                tipo = tipoesta,
+                idadm1 = geo.idadm1,
+                idadm2 = geo.idadm2,
+                pruebas = tbEstablecimientos.prueba,
+                lab = tbEstablecimientos.Laboratorio,
+                estado = tbEstablecimientos.Estado
+            };
+
+
+
         }
     }
 }
