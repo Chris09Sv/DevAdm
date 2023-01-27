@@ -119,6 +119,13 @@
                         "form-control",id="Cap" })
                         <span asp-validation-for="Capacidad" class="text-danger"></span>
                     </div>
+                <div class="form-group" hidden=True>
+                    <label asp-for="IdViepi" class="control-label"></label>
+                    <input asp-for="IdViepi" class="form-control display:none"   />
+                    <span asp-validation-for="prueba" class="text-danger"></span>
+                </div>
+
+
                     <div class="form-group">
                         <input type="submit" value="Save" class="btn btn-primary" />
                     </div>

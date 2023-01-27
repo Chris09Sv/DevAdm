@@ -93,7 +93,7 @@ namespace DevControl.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create( TbEstablecimientos input)
+        public async Task<IActionResult> Create(TbEstablecimientos input)
         {
 
             TbEstablecimientos establecimiento = new()
@@ -118,7 +118,7 @@ namespace DevControl.Controllers
                 Activacion = DateTime.Now,
                 Usuario = input.Usuario
             };
-           _data. AddEstablecimiento(establecimiento);
+            _data.AddEstablecimiento(establecimiento);
 
             if (!ModelState.IsValid)
             {
@@ -201,18 +201,47 @@ namespace DevControl.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id,  TbEstablecimientos tbEstablecimientos)
+        public async Task<IActionResult> Edit(int id, TbEstablecimientos tbEstablecimientos)
         {
             if (id != tbEstablecimientos.Id)
             {
                 return NotFound();
             }
 
+            // var input = await _context.tbEstablecimientos.FindAsync(id);
+
+            
+            // TbEstablecimientos establecimiento = new()
+            // {
+            //     Centro = tbEstablecimientos.Centro,
+            //     Institucion = tbEstablecimientos.Institucion,
+            //     Categoria = tbEstablecimientos.Categoria,
+            //     Subsector = tbEstablecimientos.Subsector,
+            //     Nivel = tbEstablecimientos.Nivel,
+            //     Capacidad = 0, // input.Capacidad,
+            //     Provincia = tbEstablecimientos.Provincia,
+            //     Municipio = tbEstablecimientos.Municipio,
+            //     Distrito = tbEstablecimientos.Distrito,
+            //     Sector = input.Sector,
+            //     Area = tbEstablecimientos.Area,
+            //     prueba = tbEstablecimientos.prueba,
+            //     Laboratorio = tbEstablecimientos.Laboratorio,
+            //     IdViepi = input.IdViepi, ///input.IdViepi,
+            //     Sat = input.Sat,
+            //     Estado = 1,
+            //     Creacion = DateTime.Now,
+            //     Activacion = DateTime.Now,
+            //     Usuario = input.Usuario
+            // };
+
             if (ModelState.IsValid)
             {
                 try
                 {
                     _context.Update(tbEstablecimientos);
+
+                    _data.UpdateEstablecimiento(tbEstablecimientos);
+
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)

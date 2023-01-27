@@ -185,6 +185,27 @@ namespace DevControl.Migrations
                     b.ToTable("tbSubsectors");
                 });
 
+            modelBuilder.Entity("DevControl.Models.TbArea", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
+
+                    b.Property<string>("Area")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Provincia")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("id");
+
+                    b.ToTable("tbArea");
+                });
+
             modelBuilder.Entity("DevControl.Models.TbDistrito", b =>
                 {
                     b.Property<int>("Id")

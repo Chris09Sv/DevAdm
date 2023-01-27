@@ -18,7 +18,7 @@
 </p>
 <button id="export">Exportar</button>
 
-<table id="tabla" class="table table-striped" style="width:100%">
+<table id="tabla" class="table table-striped" style="width:100%" ta-page-length='100'>
     <thead>
         <tr>
             <th>
@@ -68,415 +68,429 @@
     </thead>
     <tbody>
         @* @foreach (var item in Model) {
-            <tr>
-            <td>
-            @Html.DisplayFor(modelItem => item.Centro)
-            </td>
-            <td>
-            @Html.DisplayFor(modelItem => item.Institucion)
-            </td>
-            <td>
-            @Html.DisplayFor(modelItem => item.Categoria)
-            </td>
-            <td>
-            @Html.DisplayFor(modelItem => item.Subsector)
-            </td>
-            <td>
-            @Html.DisplayFor(modelItem => item.Nivel)
-            </td>
-            <td>
-            @Html.DisplayFor(modelItem => item.Provincia)
-            </td>
-            <td>
-            @Html.DisplayFor(modelItem => item.Municipio)
-            </td>
-            <td>
-            @Html.DisplayFor(modelItem => item.Distrito)
-            </td>
-            <td>
-            @Html.DisplayFor(modelItem => item.Sector)
-            </td>
-            <td>
-            @Html.DisplayFor(modelItem => item.Area)
-            </td>
-            <td>
-            @Html.DisplayFor(modelItem => item.prueba)
-            </td>
-            <td>
-            @Html.DisplayFor(modelItem => item.Laboratorio)
-            </td>
-            <td>
-            @Html.DisplayFor(modelItem => item.Viepi)
-            </td>
-            <td>
-            @Html.DisplayFor(modelItem => item.Sat)
-            </td>
-            <td>
-            <a asp-action="Edit" asp-route-id="@item.id">Edit</a> |
-            <a asp-action="Details" asp-route-id="@item.id">Details</a> |
-            <a asp-action="Delete" asp-route-id="@item.id">Delete</a>
-            </td>
-            </tr>
-            } *@
+        <tr>
+        <td>
+        @Html.DisplayFor(modelItem => item.Centro)
+        </td>
+        <td>
+        @Html.DisplayFor(modelItem => item.Institucion)
+        </td>
+        <td>
+        @Html.DisplayFor(modelItem => item.Categoria)
+        </td>
+        <td>
+        @Html.DisplayFor(modelItem => item.Subsector)
+        </td>
+        <td>
+        @Html.DisplayFor(modelItem => item.Nivel)
+        </td>
+        <td>
+        @Html.DisplayFor(modelItem => item.Provincia)
+        </td>
+        <td>
+        @Html.DisplayFor(modelItem => item.Municipio)
+        </td>
+        <td>
+        @Html.DisplayFor(modelItem => item.Distrito)
+        </td>
+        <td>
+        @Html.DisplayFor(modelItem => item.Sector)
+        </td>
+        <td>
+        @Html.DisplayFor(modelItem => item.Area)
+        </td>
+        <td>
+        @Html.DisplayFor(modelItem => item.prueba)
+        </td>
+        <td>
+        @Html.DisplayFor(modelItem => item.Laboratorio)
+        </td>
+        <td>
+        @Html.DisplayFor(modelItem => item.Viepi)
+        </td>
+        <td>
+        @Html.DisplayFor(modelItem => item.Sat)
+        </td>
+        <td>
+        <a asp-action="Edit" asp-route-id="@item.id">Edit</a> |
+        <a asp-action="Details" asp-route-id="@item.id">Details</a> |
+        <a asp-action="Delete" asp-route-id="@item.id">Delete</a>
+        </td>
+        </tr>
+        } *@
     </tbody>
 </table>
+<hr>
+
+<hr>
+<hr>
+
 
 @section scripts
 
-{
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-<script src="~/lib/datatables.net/jquery.dataTables.min.js"></script>
-<script src="~/datatables.net-bs/dataTables.bootstrap.min.js"></script>
-<script src="//cdn.datatables.net/plug-ins/1.12.1/i18n/es-MX.json"></script>
+    {
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="~/lib/datatables.net/jquery.dataTables.min.js"></script>
+    <script src="~/datatables.net-bs/dataTables.bootstrap.min.js"></script>
+    <script src="//cdn.datatables.net/plug-ins/1.12.1/i18n/es-MX.json"></script>
 
 
-<script type="text/javascript">
+    <script type="text/javascript">
 
 
 
 
-    document.getElementById('export').onclick = function () {
-        var tableId = document.getElementById('tabla').id;
-        htmlTableToExcel(tableId, filename = '');
-    }
-
-
-    var htmlTableToExcel = function (tableId, fileName = '') {
-
-        var excelFileName = 'excel_table_data';
-        var TableDataType = 'application/vnd.ms-excel';
-        var selectTable = document.getElementById(tableId);
-        var htmlTable = selectTable.outerHTML.replace(/ /g, '%20');
-
-        filename = filename ? filename + '.xls' : excelFileName + '.xls';
-        var excelFileURL = document.createElement("a");
-        document.body.appendChild(excelFileURL);
-
-        if (navigator.msSaveOrOpenBlob) {
-            var blob = new Blob(['\ufeff', htmlTable], {
-                type: TableDataType
-            });
-            navigator.msSaveOrOpenBlob(blob, fileName);
-        } else {
-
-            excelFileURL.href = 'data:' + TableDataType + ', ' + htmlTable;
-            excelFileURL.download = fileName;
-            excelFileURL.click();
+        document.getElementById('export').onclick = function () {
+            var tableId = document.getElementById('tabla').id;
+            htmlTableToExcel(tableId, filename = '');
         }
-    }
-</script>
-
-<script>
 
 
+        var htmlTableToExcel = function (tableId, fileName = '') {
 
-    $(document).ready(function () {
-        $('#tabla').DataTable
+            var excelFileName = 'excel_table_data';
+            var TableDataType = 'application/vnd.ms-excel';
+            var selectTable = document.getElementById(tableId);
+            var htmlTable = selectTable.outerHTML.replace(/ /g, '%20');
 
-            (
-                {
-                    ajax: {
-                        url: '/api/municipios/getcentros/',
-                        dataSrc: ""
-                    },
-                    columns: [
-                        {
-                            data: "centro",
-                            render: function (data, type, customer) {
-                                return "<a href='/TbEstablecimientos/edit/" + customer.id + "'>" + customer.centro + "</a>";
-                            }
+            filename = filename ? filename + '.xls' : excelFileName + '.xls';
+            var excelFileURL = document.createElement("a");
+            document.body.appendChild(excelFileURL);
 
-                        },
-                        {
-                            data: "institucion",
+            if (navigator.msSaveOrOpenBlob) {
+                var blob = new Blob(['\ufeff', htmlTable], {
+                    type: TableDataType
+                });
+                navigator.msSaveOrOpenBlob(blob, fileName);
+            } else {
 
-                        }, {
-                            data: "categoria",
+                excelFileURL.href = 'data:' + TableDataType + ', ' + htmlTable;
+                excelFileURL.download = fileName;
+                excelFileURL.click();
+            }
+        }
+    </script>
 
-                        }, {
-                            data: "subsector",
+    <script>
 
-                        }, {
-                            data: "nivel",
 
-                        }, {
-                            data: "provincia",
 
-                        }, {
-                            data: "municipio",
+        $(document).ready(function () {
+            $('#tabla').DataTable
 
-                        }, {
-                            data: "distrito",
-
-                        }, {
-                            data: "sector",
-
-                        }, {
-                            data: "area",
-
-                        }, {
-                            data: "prueba",
-
-                        }, {
-                            data: "laboratorio",
-
-                        }, {
-                            data: "viepi",
-
-                        }, {
-                            data: "sat",
-
-                        },
-
-                    ],
-
-                    language:
+                (
                     {
-                        "processing": "Procesando...",
-                        "lengthMenu": "Mostrar _MENU_ registros",
-                        "zeroRecords": "No se encontraron resultados",
-                        "emptyTable": "Ningún dato disponible en esta tabla",
-                        "infoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
-                        "infoFiltered": "(filtrado de un total de _MAX_ registros)",
-                        "search": "Buscar:",
-                        "infoThousands": ",",
-                        "loadingRecords": "Cargando...",
-                        "paginate": {
-                            "first": "Primero",
-                            "last": "Último",
-                            "next": "Siguiente",
-                            "previous": "Anterior"
+                        ajax: {
+                            url: '/api/municipios/getcentros/',
+                            dataSrc: ""
                         },
-                        "aria": {
-                            "sortAscending": ": Activar para ordenar la columna de manera ascendente",
-                            "sortDescending": ": Activar para ordenar la columna de manera descendente"
-                        },
-                        "buttons": {
-                            "copy": "Copiar",
-                            "colvis": "Visibilidad",
-                            "collection": "Colección",
-                            "colvisRestore": "Restaurar visibilidad",
-                            "copyKeys": "Presione ctrl o u2318 + C para copiar los datos de la tabla al portapapeles del sistema. <br \/> <br \/> Para cancelar, haga clic en este mensaje o presione escape.",
-                            "copySuccess": {
-                                "1": "Copiada 1 fila al portapapeles",
-                                "_": "Copiadas %ds fila al portapapeles"
-                            },
-                            "copyTitle": "Copiar al portapapeles",
-                            "csv": "CSV",
-                            "excel": "Excel",
-                            "pageLength": {
-                                "-1": "Mostrar todas las filas",
-                                "_": "Mostrar %d filas"
-                            },
-                            "pdf": "PDF",
-                            "print": "Imprimir",
-                            "renameState": "Cambiar nombre",
-                            "updateState": "Actualizar",
-                            "createState": "Crear Estado",
-                            "removeAllStates": "Remover Estados",
-                            "removeState": "Remover",
-                            "savedStates": "Estados Guardados",
-                            "stateRestore": "Estado %d"
-                        },
-                        "autoFill": {
-                            "cancel": "Cancelar",
-                            "fill": "Rellene todas las celdas con <i>%d<\/i>",
-                            "fillHorizontal": "Rellenar celdas horizontalmente",
-                            "fillVertical": "Rellenar celdas verticalmentemente"
-                        },
-                        "decimal": ",",
-                        "searchBuilder": {
-                            "add": "Añadir condición",
-                            "button": {
-                                "0": "Constructor de búsqueda",
-                                "_": "Constructor de búsqueda (%d)"
-                            },
-                            "clearAll": "Borrar todo",
-                            "condition": "Condición",
-                            "conditions": {
-                                "date": {
-                                    "after": "Despues",
-                                    "before": "Antes",
-                                    "between": "Entre",
-                                    "empty": "Vacío",
-                                    "equals": "Igual a",
-                                    "notBetween": "No entre",
-                                    "notEmpty": "No Vacio",
-                                    "not": "Diferente de"
-                                },
-                                "number": {
-                                    "between": "Entre",
-                                    "empty": "Vacio",
-                                    "equals": "Igual a",
-                                    "gt": "Mayor a",
-                                    "gte": "Mayor o igual a",
-                                    "lt": "Menor que",
-                                    "lte": "Menor o igual que",
-                                    "notBetween": "No entre",
-                                    "notEmpty": "No vacío",
-                                    "not": "Diferente de"
-                                },
-                                "string": {
-                                    "contains": "Contiene",
-                                    "empty": "Vacío",
-                                    "endsWith": "Termina en",
-                                    "equals": "Igual a",
-                                    "notEmpty": "No Vacio",
-                                    "startsWith": "Empieza con",
-                                    "not": "Diferente de",
-                                    "notContains": "No Contiene",
-                                    "notStarts": "No empieza con",
-                                    "notEnds": "No termina con"
-                                },
-                                "array": {
-                                    "not": "Diferente de",
-                                    "equals": "Igual",
-                                    "empty": "Vacío",
-                                    "contains": "Contiene",
-                                    "notEmpty": "No Vacío",
-                                    "without": "Sin"
+                        @* dom: '<"toolbar">frtip', *@
+
+                        lengthMenu: [
+                            [10, 25, 50, 100, 200, -1],
+                            [10, 25, 50, 100, 200, 'All'],
+                        ],
+
+                        columns: [
+                            {
+                                data: "centro",
+                                render: function (data, type, customer) {
+                                    return "<a href='/TbEstablecimientos/edit/" + customer.id + "'>" + customer.centro + "</a>";
                                 }
+
                             },
-                            "data": "Data",
-                            "deleteTitle": "Eliminar regla de filtrado",
-                            "leftTitle": "Criterios anulados",
-                            "logicAnd": "Y",
-                            "logicOr": "O",
-                            "rightTitle": "Criterios de sangría",
-                            "title": {
-                                "0": "Constructor de búsqueda",
-                                "_": "Constructor de búsqueda (%d)"
+                            {
+                                data: "institucion",
+
+                            }, {
+                                data: "categoria",
+
+                            }, {
+                                data: "subsector",
+
+                            }, {
+                                data: "nivel",
+
+                            }, {
+                                data: "provincia",
+
+                            }, {
+                                data: "municipio",
+
+                            }, {
+                                data: "distrito",
+
+                            }, {
+                                data: "sector",
+
+                            }, {
+                                data: "area",
+
+                            }, {
+                                data: "prueba",
+
+                            }, {
+                                data: "laboratorio",
+
+                            }, {
+                                data: "viepi",
+
+                            }, {
+                                data: "sat",
+
                             },
-                            "value": "Valor"
-                        },
-                        "searchPanes": {
-                            "clearMessage": "Borrar todo",
-                            "collapse": {
-                                "0": "Paneles de búsqueda",
-                                "_": "Paneles de búsqueda (%d)"
+
+                        ],
+
+                        language:
+                        {
+                            "processing": "Procesando...",
+                            "lengthMenu": "Mostrar _MENU_ registros",
+                            "zeroRecords": "No se encontraron resultados",
+                            "emptyTable": "Ningún dato disponible en esta tabla",
+                            "infoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+                            "infoFiltered": "(filtrado de un total de _MAX_ registros)",
+                            "search": "Buscar:",
+                            "infoThousands": ",",
+                            "loadingRecords": "Cargando...",
+                            "paginate": {
+                                "first": "Primero",
+                                "last": "Último",
+                                "next": "Siguiente",
+                                "previous": "Anterior"
                             },
-                            "count": "{total}",
-                            "countFiltered": "{shown} ({total})",
-                            "emptyPanes": "Sin paneles de búsqueda",
-                            "loadMessage": "Cargando paneles de búsqueda",
-                            "title": "Filtros Activos - %d",
-                            "showMessage": "Mostrar Todo",
-                            "collapseMessage": "Colapsar Todo"
-                        },
-                        "select": {
-                            "cells": {
-                                "1": "1 celda seleccionada",
-                                "_": "%d celdas seleccionadas"
+                            "aria": {
+                                "sortAscending": ": Activar para ordenar la columna de manera ascendente",
+                                "sortDescending": ": Activar para ordenar la columna de manera descendente"
                             },
-                            "columns": {
-                                "1": "1 columna seleccionada",
-                                "_": "%d columnas seleccionadas"
+                            "buttons": {
+                                "copy": "Copiar",
+                                "colvis": "Visibilidad",
+                                "collection": "Colección",
+                                "colvisRestore": "Restaurar visibilidad",
+                                "copyKeys": "Presione ctrl o u2318 + C para copiar los datos de la tabla al portapapeles del sistema. <br \/> <br \/> Para cancelar, haga clic en este mensaje o presione escape.",
+                                "copySuccess": {
+                                    "1": "Copiada 1 fila al portapapeles",
+                                    "_": "Copiadas %ds fila al portapapeles"
+                                },
+                                "copyTitle": "Copiar al portapapeles",
+                                "csv": "CSV",
+                                "excel": "Excel",
+                                "pageLength": {
+                                    "-1": "Mostrar todas las filas",
+                                    "_": "Mostrar %d filas"
+                                },
+                                "pdf": "PDF",
+                                "print": "Imprimir",
+                                "renameState": "Cambiar nombre",
+                                "updateState": "Actualizar",
+                                "createState": "Crear Estado",
+                                "removeAllStates": "Remover Estados",
+                                "removeState": "Remover",
+                                "savedStates": "Estados Guardados",
+                                "stateRestore": "Estado %d"
                             },
-                            "rows": {
-                                "1": "1 fila seleccionada",
-                                "_": "%d filas seleccionadas"
-                            }
-                        },
-                        "thousands": ".",
-                        "datetime": {
-                            "previous": "Anterior",
-                            "next": "Proximo",
-                            "hours": "Horas",
-                            "minutes": "Minutos",
-                            "seconds": "Segundos",
-                            "unknown": "-",
-                            "amPm": [
-                                "AM",
-                                "PM"
-                            ],
-                            "months": {
-                                "0": "Enero",
-                                "1": "Febrero",
-                                "10": "Noviembre",
-                                "11": "Diciembre",
-                                "2": "Marzo",
-                                "3": "Abril",
-                                "4": "Mayo",
-                                "5": "Junio",
-                                "6": "Julio",
-                                "7": "Agosto",
-                                "8": "Septiembre",
-                                "9": "Octubre"
+                            "autoFill": {
+                                "cancel": "Cancelar",
+                                "fill": "Rellene todas las celdas con <i>%d<\/i>",
+                                "fillHorizontal": "Rellenar celdas horizontalmente",
+                                "fillVertical": "Rellenar celdas verticalmentemente"
                             },
-                            "weekdays": [
-                                "Dom",
-                                "Lun",
-                                "Mar",
-                                "Mie",
-                                "Jue",
-                                "Vie",
-                                "Sab"
-                            ]
-                        },
-                        "editor": {
-                            "close": "Cerrar",
-                            "create": {
-                                "button": "Nuevo",
-                                "title": "Crear Nuevo Registro",
-                                "submit": "Crear"
+                            "decimal": ",",
+                            "searchBuilder": {
+                                "add": "Añadir condición",
+                                "button": {
+                                    "0": "Constructor de búsqueda",
+                                    "_": "Constructor de búsqueda (%d)"
+                                },
+                                "clearAll": "Borrar todo",
+                                "condition": "Condición",
+                                "conditions": {
+                                    "date": {
+                                        "after": "Despues",
+                                        "before": "Antes",
+                                        "between": "Entre",
+                                        "empty": "Vacío",
+                                        "equals": "Igual a",
+                                        "notBetween": "No entre",
+                                        "notEmpty": "No Vacio",
+                                        "not": "Diferente de"
+                                    },
+                                    "number": {
+                                        "between": "Entre",
+                                        "empty": "Vacio",
+                                        "equals": "Igual a",
+                                        "gt": "Mayor a",
+                                        "gte": "Mayor o igual a",
+                                        "lt": "Menor que",
+                                        "lte": "Menor o igual que",
+                                        "notBetween": "No entre",
+                                        "notEmpty": "No vacío",
+                                        "not": "Diferente de"
+                                    },
+                                    "string": {
+                                        "contains": "Contiene",
+                                        "empty": "Vacío",
+                                        "endsWith": "Termina en",
+                                        "equals": "Igual a",
+                                        "notEmpty": "No Vacio",
+                                        "startsWith": "Empieza con",
+                                        "not": "Diferente de",
+                                        "notContains": "No Contiene",
+                                        "notStarts": "No empieza con",
+                                        "notEnds": "No termina con"
+                                    },
+                                    "array": {
+                                        "not": "Diferente de",
+                                        "equals": "Igual",
+                                        "empty": "Vacío",
+                                        "contains": "Contiene",
+                                        "notEmpty": "No Vacío",
+                                        "without": "Sin"
+                                    }
+                                },
+                                "data": "Data",
+                                "deleteTitle": "Eliminar regla de filtrado",
+                                "leftTitle": "Criterios anulados",
+                                "logicAnd": "Y",
+                                "logicOr": "O",
+                                "rightTitle": "Criterios de sangría",
+                                "title": {
+                                    "0": "Constructor de búsqueda",
+                                    "_": "Constructor de búsqueda (%d)"
+                                },
+                                "value": "Valor"
                             },
-                            "edit": {
-                                "button": "Editar",
-                                "title": "Editar Registro",
-                                "submit": "Actualizar"
+                            "searchPanes": {
+                                "clearMessage": "Borrar todo",
+                                "collapse": {
+                                    "0": "Paneles de búsqueda",
+                                    "_": "Paneles de búsqueda (%d)"
+                                },
+                                "count": "{total}",
+                                "countFiltered": "{shown} ({total})",
+                                "emptyPanes": "Sin paneles de búsqueda",
+                                "loadMessage": "Cargando paneles de búsqueda",
+                                "title": "Filtros Activos - %d",
+                                "showMessage": "Mostrar Todo",
+                                "collapseMessage": "Colapsar Todo"
                             },
-                            "remove": {
-                                "button": "Eliminar",
-                                "title": "Eliminar Registro",
-                                "submit": "Eliminar",
-                                "confirm": {
-                                    "_": "¿Está seguro que desea eliminar %d filas?",
-                                    "1": "¿Está seguro que desea eliminar 1 fila?"
-                                }
-                            },
-                            "error": {
-                                "system": "Ha ocurrido un error en el sistema (<a target=\"\\\" rel=\"\\ nofollow\" href=\"\\\">Más información&lt;\\\/a&gt;).<\/a>"
-                            },
-                            "multi": {
-                                "title": "Múltiples Valores",
-                                "info": "Los elementos seleccionados contienen diferentes valores para este registro. Para editar y establecer todos los elementos de este registro con el mismo valor, hacer click o tap aquí, de lo contrario conservarán sus valores individuales.",
-                                "restore": "Deshacer Cambios",
-                                "noMulti": "Este registro puede ser editado individualmente, pero no como parte de un grupo."
-                            }
-                        },
-                        "info": "Mostrando _START_ a _END_ de _TOTAL_ registros",
-                        "stateRestore": {
-                            "creationModal": {
-                                "button": "Crear",
-                                "name": "Nombre:",
-                                "order": "Clasificación",
-                                "paging": "Paginación",
-                                "search": "Busqueda",
-                                "select": "Seleccionar",
+                            "select": {
+                                "cells": {
+                                    "1": "1 celda seleccionada",
+                                    "_": "%d celdas seleccionadas"
+                                },
                                 "columns": {
-                                    "search": "Búsqueda de Columna",
-                                    "visible": "Visibilidad de Columna"
+                                    "1": "1 columna seleccionada",
+                                    "_": "%d columnas seleccionadas"
                                 },
-                                "title": "Crear Nuevo Estado",
-                                "toggleLabel": "Incluir:"
+                                "rows": {
+                                    "1": "1 fila seleccionada",
+                                    "_": "%d filas seleccionadas"
+                                }
                             },
-                            "emptyError": "El nombre no puede estar vacio",
-                            "removeConfirm": "¿Seguro que quiere eliminar este %s?",
-                            "removeError": "Error al eliminar el registro",
-                            "removeJoiner": "y",
-                            "removeSubmit": "Eliminar",
-                            "renameButton": "Cambiar Nombre",
-                            "renameLabel": "Nuevo nombre para %s",
-                            "duplicateError": "Ya existe un Estado con este nombre.",
-                            "emptyStates": "No hay Estados guardados",
-                            "removeTitle": "Remover Estado",
-                            "renameTitle": "Cambiar Nombre Estado"
+                            "thousands": ".",
+                            "datetime": {
+                                "previous": "Anterior",
+                                "next": "Proximo",
+                                "hours": "Horas",
+                                "minutes": "Minutos",
+                                "seconds": "Segundos",
+                                "unknown": "-",
+                                "amPm": [
+                                    "AM",
+                                    "PM"
+                                ],
+                                "months": {
+                                    "0": "Enero",
+                                    "1": "Febrero",
+                                    "10": "Noviembre",
+                                    "11": "Diciembre",
+                                    "2": "Marzo",
+                                    "3": "Abril",
+                                    "4": "Mayo",
+                                    "5": "Junio",
+                                    "6": "Julio",
+                                    "7": "Agosto",
+                                    "8": "Septiembre",
+                                    "9": "Octubre"
+                                },
+                                "weekdays": [
+                                    "Dom",
+                                    "Lun",
+                                    "Mar",
+                                    "Mie",
+                                    "Jue",
+                                    "Vie",
+                                    "Sab"
+                                ]
+                            },
+                            "editor": {
+                                "close": "Cerrar",
+                                "create": {
+                                    "button": "Nuevo",
+                                    "title": "Crear Nuevo Registro",
+                                    "submit": "Crear"
+                                },
+                                "edit": {
+                                    "button": "Editar",
+                                    "title": "Editar Registro",
+                                    "submit": "Actualizar"
+                                },
+                                "remove": {
+                                    "button": "Eliminar",
+                                    "title": "Eliminar Registro",
+                                    "submit": "Eliminar",
+                                    "confirm": {
+                                        "_": "¿Está seguro que desea eliminar %d filas?",
+                                        "1": "¿Está seguro que desea eliminar 1 fila?"
+                                    }
+                                },
+                                "error": {
+                                    "system": "Ha ocurrido un error en el sistema (<a target=\"\\\" rel=\"\\ nofollow\" href=\"\\\">Más información&lt;\\\/a&gt;).<\/a>"
+                                },
+                                "multi": {
+                                    "title": "Múltiples Valores",
+                                    "info": "Los elementos seleccionados contienen diferentes valores para este registro. Para editar y establecer todos los elementos de este registro con el mismo valor, hacer click o tap aquí, de lo contrario conservarán sus valores individuales.",
+                                    "restore": "Deshacer Cambios",
+                                    "noMulti": "Este registro puede ser editado individualmente, pero no como parte de un grupo."
+                                }
+                            },
+                            "info": "Mostrando _START_ a _END_ de _TOTAL_ registros",
+                            "stateRestore": {
+                                "creationModal": {
+                                    "button": "Crear",
+                                    "name": "Nombre:",
+                                    "order": "Clasificación",
+                                    "paging": "Paginación",
+                                    "search": "Busqueda",
+                                    "select": "Seleccionar",
+                                    "columns": {
+                                        "search": "Búsqueda de Columna",
+                                        "visible": "Visibilidad de Columna"
+                                    },
+                                    "title": "Crear Nuevo Estado",
+                                    "toggleLabel": "Incluir:"
+                                },
+                                "emptyError": "El nombre no puede estar vacio",
+                                "removeConfirm": "¿Seguro que quiere eliminar este %s?",
+                                "removeError": "Error al eliminar el registro",
+                                "removeJoiner": "y",
+                                "removeSubmit": "Eliminar",
+                                "renameButton": "Cambiar Nombre",
+                                "renameLabel": "Nuevo nombre para %s",
+                                "duplicateError": "Ya existe un Estado con este nombre.",
+                                "emptyStates": "No hay Estados guardados",
+                                "removeTitle": "Remover Estado",
+                                "renameTitle": "Cambiar Nombre Estado"
+                            }
                         }
+
                     }
+                );
+        @* $('div.toolbar').html('<b>Custom tool bar! Text/images etc.</b>'); *@
 
-                }
-            );
-    });
+            });
 
-</script>
+    </script>
 }

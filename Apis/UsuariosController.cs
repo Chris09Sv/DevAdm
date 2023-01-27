@@ -14,11 +14,11 @@ namespace DevControl.Apis
         private readonly DevContext _context;
         private readonly IConfiguration iconfiguration;
         private readonly IData _data;
- 
-        public UsuariosController(DevContext context, IConfiguration iconfiguration,IData data)
+
+        public UsuariosController(DevContext context, IConfiguration iconfiguration, IData data)
         {
             _context = context;
-            _data=data;
+            _data = data;
             this.iconfiguration = iconfiguration;
         }
 
@@ -39,14 +39,14 @@ u.uname=a.uname
     on 
 t.Id=a.Centro";
             //  var customers=""'
-     
-     
+
+
             using (IDbConnection connection = new SqlConnection(iconfiguration.GetConnectionString("DataSof")))
             {
-                
-                    var customers = connection.Query(sql);
 
-                    return Ok(customers);             
+                var customers = connection.Query(sql);
+
+                return Ok(customers);
             };
 
             var tab = "hello";

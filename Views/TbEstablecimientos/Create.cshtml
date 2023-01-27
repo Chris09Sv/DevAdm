@@ -16,6 +16,54 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     ViewData["Title"] = "Create";
 }
 
@@ -94,35 +142,35 @@
             </div>
             <div class="form-group">
                 <label asp-for="Area" class="control-label"></label>
-                <input asp-for="Area" class="form-control" />
+                <select asp-for="Area" class="form-control" id="area-dropdown" ></select>
                 <span asp-validation-for="Area" class="text-danger"></span>
             </div>
 
+            <div class="form-group">
+
                 <div class="form-group">
+                    <label asp-for="Laboratorio" class="control-label"></label>
 
-                    <div class="form-group">
-                        <label asp-for="Laboratorio" class="control-label"></label>
+                    @Html.DropDownListFor(x => x.Laboratorio, (IEnumerable
+                    <SelectListItem>)ViewData["DbYesNo"], "-- Select --", htmlAttributes: new { @class =
+                    "form-control",id="lab" , onchange="fcLab()"})
 
-                        @Html.DropDownListFor(x => x.Laboratorio, (IEnumerable
-                        <SelectListItem>)ViewData["DbYesNo"], "-- Select --", htmlAttributes: new { @class =
-                        "form-control",id="lab" , onchange="fcLab()"})
-
-                        <span asp-validation-for="Laboratorio" class="text-danger"></span>
+                    <span asp-validation-for="Laboratorio" class="text-danger"></span>
 
 
-                    </div>
+                </div>
 
-                    <div class="form-group" style="display: none;" id="dvCap">
-                        <label asp-for="prueba" class="control-label"></label>
-                        @Html.DropDownListFor(x => x.prueba, (IEnumerable
-                        <SelectListItem>)ViewData["DbCap"], "-- Select --", htmlAttributes: new { @class =
-                        "form-control",id="Cap" })
-                        <span asp-validation-for="prueba" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <input type="submit" value="Create" class="btn btn-primary" />
-                    </div>
-                    <hr />
+                <div class="form-group" style="display: none;" id="dvCap">
+                    <label asp-for="prueba" class="control-label"></label>
+                    @Html.DropDownListFor(x => x.prueba, (IEnumerable
+                    <SelectListItem>)ViewData["DbCap"], "-- Select --", htmlAttributes: new { @class =
+                    "form-control",id="Cap" })
+                    <span asp-validation-for="prueba" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-primary" />
+                </div>
+                <hr />
 
         </form>
     </div>
@@ -156,8 +204,10 @@
     }
 
 
+
     function myFunc() {
         alert('hi')
+        fcArea()
         let dropdown = document.getElementById('municipio-dropdown');
         dropdown.length = 0;
 
@@ -269,6 +319,50 @@
                         for (let i = 0; i < data.length; i++) {
                             option = document.createElement('option');
                             option.text = data[i].barrio;
+                            option.value = data[i].id;
+                            dropdown.add(option);
+                        }
+                    });
+                }
+            )
+            .catch(function (err) {
+                console.error('fetch error -', err);
+            });
+
+    }
+
+
+
+
+    function fcArea() {
+        alert('hi area')
+        let dropdown = document.getElementById('area-dropdown');
+        dropdown.length = 0;
+
+        let defaultoption = document.createElement('option');
+        defaultoption.text = 'seleccione el Area de Salud';
+
+        dropdown.add(defaultoption);
+        dropdown.selectedindex = 0;
+        var data = document.getElementById("prov").value;
+        const url = '/api/municipios/getarea/' + data;
+
+        fetch(url)
+            .then(
+                function (response) {
+                    if (response.status !== 200) {
+                        console.warn('looks like there was a problem. status code: ' +
+                            response.status);
+                        return;
+                    }
+
+                    // examine the text in the response  
+                    response.json().then(function (data) {
+                        let option;
+
+                        for (let i = 0; i < data.length; i++) {
+                            option = document.createElement('option');
+                            option.text = data[i].area;
                             option.value = data[i].id;
                             dropdown.add(option);
                         }

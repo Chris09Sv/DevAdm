@@ -77,13 +77,26 @@ namespace DevControl.Apis
             return Ok(municipio);
         }
 
+        [HttpGet("{id}")]
+        public ActionResult GetArea(int id)
+        {
+            var prov = _context.tbProvincias.Where(x => x.id == id).SingleOrDefault();
+            var Area = _context.tbArea.Where(x => x.Provincia == prov.codigo).ToList();
+
+            if (Area == null)
+            {
+                return NotFound();
+            }
+
+
+
+            return Ok(Area);
+        }
+
         [HttpGet]
 
         public ActionResult GetCentros()
         {
-
-
-
             return Ok(_data.GetVmEstablecimientos());
         }
 

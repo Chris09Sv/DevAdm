@@ -1,5 +1,6 @@
 using DevControl.Models;
 using DevControl.Models.Establecimientos;
+using DevControl.Models.VieModel;
 
 namespace DevControl.Services
 {
@@ -14,6 +15,9 @@ namespace DevControl.Services
 
 
         void AddEstablecimiento(TbEstablecimientos tbEstablecimientos);
+        void UpdateEstablecimiento(TbEstablecimientos tbEstablecimientos);
+
+
 
     }
 
