@@ -103,7 +103,7 @@ namespace DevControl.Controllers
                 Categoria = input.Categoria,
                 Subsector = input.Subsector,
                 Nivel = input.Nivel,
-                Capacidad = 0, // input.Capacidad,
+                // Capacidad = 0, // input.Capacidad,
                 Provincia = input.Provincia,
                 Municipio = input.Municipio,
                 Distrito = input.Distrito,
@@ -118,7 +118,9 @@ namespace DevControl.Controllers
                 Activacion = DateTime.Now,
                 Usuario = input.Usuario
             };
-            _data.AddEstablecimiento(establecimiento);
+            _data.AddEstablecimientoSat(establecimiento);
+
+            //_data.AddEstablecimiento(establecimiento);
 
             if (!ModelState.IsValid)
             {
@@ -160,7 +162,7 @@ namespace DevControl.Controllers
             ViewData["DbNivel"] = list_nivel;
 
 
-            var mun = _context.tbMunicipios.Where(x => x.Id == tbEstablecimientos.Municipio).ToList();
+            var mun = _context.tbMunicipios.Where(x => Convert.ToInt32(x.provincia) == tbEstablecimientos.Provincia).ToList();
             var list_mun = new SelectList(mun, "Id", "municipio");
             ViewData["DbMun"] = list_mun;
 
@@ -178,6 +180,10 @@ namespace DevControl.Controllers
             var cap = _context.tbCapacidad.Where(x => x.Capacidad != "No procesa").ToList();
             var list_cap = new SelectList(cap, "Id", "Capacidad");
             ViewData["DbCap"] = list_cap;
+
+            var area = _context.tbArea.Where(x => x.id== tbEstablecimientos.Area).ToList();
+            var list_area = new SelectList(area, "id", "Area");
+            ViewData["DbArea"] = list_area;
 
             List<SelectListItem> YesNo = new List<SelectListItem>();
             YesNo.Add(new SelectListItem { Text = "No", Value = "0" });

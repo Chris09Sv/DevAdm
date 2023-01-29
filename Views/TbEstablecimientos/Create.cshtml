@@ -1,79 +1,16 @@
 ﻿@model DevControl.Models.Establecimientos.TbEstablecimientos
 
 @{
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    ViewData["Title"] = "Create";
+ ViewData["Title"] = "Create";
 }
 
 <h1>Create</h1>
 
-<h4>TbEstablecimientos</h4>
+<h4>Crear Establecimiento</h4>
 <hr />
 
-<div class="form-row">
-    <div class="row">
+<div class="row">
+    <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
@@ -126,13 +63,13 @@
             </div>
             <div class="form-group">
                 <label asp-for="Distrito" class="control-label"></label>
-                <select asp-for="Distrito" class="form-control" id="distrito-dropdown" onchange="fcSec()"> </select>
+                <select asp-for="Distrito" class="form-control" id="distrito-dropdown" onchange="fcSecc()"> </select>
                 <span asp-validation-for="Distrito" class="text-danger"></span>
             </div>
 
-            <div class="form-group">
+            <div class="form-group " >
                 <label asp-for="Seccion" class="control-label"></label>
-                <input asp-for="Seccion" class="form-control" id="distrito-dropdown" onchange="fcSec()"> </select>
+                <select  asp-for="Seccion" class="form-control" id="seccion-dropdown" onchange="fcSec()"> </select>
                 <span asp-validation-for="Seccion" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -146,7 +83,7 @@
                 <span asp-validation-for="Area" class="text-danger"></span>
             </div>
 
-            <div class="form-group">
+
 
                 <div class="form-group">
                     <label asp-for="Laboratorio" class="control-label"></label>
@@ -206,7 +143,7 @@
 
 
     function myFunc() {
-        alert('hi')
+        
         fcArea()
         let dropdown = document.getElementById('municipio-dropdown');
         dropdown.length = 0;
@@ -248,7 +185,7 @@
     }
 
     function fcDm() {
-        alert('hi')
+        
         let dropdown = document.getElementById('distrito-dropdown');
         dropdown.length = 0;
 
@@ -288,10 +225,51 @@
 
     }
 
+    function fcSecc() {
+        
+        let dropdown = document.getElementById('seccion-dropdown');
+        dropdown.length = 0;
+
+        let defaultoption = document.createElement('option');
+        defaultoption.text = 'Seleccione Seccion';
+
+        dropdown.add(defaultoption);
+        dropdown.selectedindex = 0;
+        var data = document.getElementById("distrito-dropdown").value;
+        const url = '/api/municipios/GetSeccion/' + data;
+
+        fetch(url)
+            .then(
+                function (response) {
+                    if (response.status !== 200) {
+                        console.warn('looks like there was a problem. status code: ' +
+                            response.status);
+                        return;
+                    }
+
+                    // examine the text in the response  
+                    response.json().then(function (data) {
+                        let option;
+
+                        for (let i = 0; i < data.length; i++) {
+                            option = document.createElement('option');
+                            option.text = data[i].nombreone;
+                            option.value = data[i].id;
+                            dropdown.add(option);
+                        }
+                    });
+                }
+            )
+            .catch(function (err) {
+                console.error('fetch error -', err);
+            });
+
+    }
+
 
 
     function fcSec() {
-        alert('hi')
+        
         let dropdown = document.getElementById('sector-dropdown');
         dropdown.length = 0;
 
@@ -335,7 +313,6 @@
 
 
     function fcArea() {
-        alert('hi area')
         let dropdown = document.getElementById('area-dropdown');
         dropdown.length = 0;
 

@@ -93,6 +93,29 @@ namespace DevControl.Apis
             return Ok(Area);
         }
 
+        [HttpGet("{id}")]
+
+        public ActionResult GetSeccion(int id)
+        {
+
+            var mun = _context.tbDistritos.Where(x => x.Id == id).ToList().SingleOrDefault();
+            if (mun == null)
+            {
+                return NotFound();
+            }
+
+            var pa = mun.provincia + mun.municipio + mun.codigo;
+            var municipio = _context.tbSecciones.Where(x => x.cod_one_pr + x.cod_one_mu + x.cod_one_dm == pa).ToList();
+            if (municipio == null)
+            {
+                return NotFound();
+            }
+
+
+
+            return Ok(municipio);
+        }
+
         [HttpGet]
 
         public ActionResult GetCentros()

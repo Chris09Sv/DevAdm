@@ -6,6 +6,8 @@ using Microsoft.Extensions.Configuration;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddRazorPages();
+
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<DevContext>(options => options.UseSqlServer( builder.Configuration.GetConnectionString("DevControlContext")));
 
@@ -26,6 +28,8 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
+app.MapRazorPages();
+
 
 app.MapControllerRoute(
     name: "default",

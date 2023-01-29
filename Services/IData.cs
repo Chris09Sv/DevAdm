@@ -15,6 +15,7 @@ namespace DevControl.Services
 
 
         void AddEstablecimiento(TbEstablecimientos tbEstablecimientos);
+        void AddEstablecimientoSat(TbEstablecimientos tbEstablecimientos);
         void UpdateEstablecimiento(TbEstablecimientos tbEstablecimientos);
 
 

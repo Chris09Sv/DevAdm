@@ -3,6 +3,7 @@ using Dapper;
 using DevControl.Data;
 using DevControl.Models;
 using DevControl.Models.Establecimientos;
+using DevControl.Models.Establecimientos.Sat;
 using DevControl.Models.Viepi;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
@@ -137,6 +138,33 @@ namespace DevControl.Services
 
         }
 
+        public void AddEstablecimientoSat(TbEstablecimientos tbEstablecimientos)
+        {
+            var mun = _context.tbMunicipios.Where(x => x.Id == tbEstablecimientos.Municipio).SingleOrDefault();
+            var institucion = _context.tbInstitucion.Where(x => x.Id == tbEstablecimientos.Institucion).SingleOrDefault();
+            var seccion = _context.tbSecciones.Where(x => x.Id == tbEstablecimientos.Seccion).SingleOrDefault();
+            EstableimientosSat sat = new()
+            {
+                centro = tbEstablecimientos.Centro,
+                nivel = tbEstablecimientos.Nivel,
+                institucion = institucion.Institucion,
+                provincia = tbEstablecimientos.Provincia,
+                municipo = mun.mun,
+                seccion = seccion.cod_one_se,
+                area = 1,
+                activo = tbEstablecimientos.Estado,
+                usr ="cw",
+                tipo=tbEstablecimientos.Categoria
+
+
+
+            };
+
+
+        }
+
+
+
         public void AddEstablecimiento(TbEstablecimientos tbEstablecimientos)
         {
 
@@ -264,7 +292,7 @@ namespace DevControl.Services
                 id=Convert.ToInt32(tbEstablecimientos.IdViepi)
             };
 
-            var insert = "update  establecimientos set  institucion=@institucion,           nivel1=@nivel1, nivel2=@nivel2,             tipo=@tipo,             idadm1=@idadm1,             idadm2=@idadm2,             pruebas=@pruebas,           lab=@lab,             estado=@estado           where id=@id";
+            var insert = "update  establecimientos set  nombre=@nombre, institucion=@institucion,           nivel1=@nivel1, nivel2=@nivel2,             tipo=@tipo,             idadm1=@idadm1,             idadm2=@idadm2,             pruebas=@pruebas,           lab=@lab,             estado=@estado           where id=@id";
             using (IDbConnection connection = new MySqlConnection(iconfiguration.GetConnectionString("DataViepi")))
             {
                 connection.Execute(insert,  new { est.nombre, est.institucion, est.nivel1, est.nivel2, est.tipo, est.idadm1, est.idadm2, est.pruebas, est.lab, est.estado, est.id } );

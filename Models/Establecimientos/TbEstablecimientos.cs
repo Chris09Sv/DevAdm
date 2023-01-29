@@ -9,9 +9,9 @@ namespace DevControl.Models.Establecimientos
         public int Institucion { get; set; }
         public int Categoria { get; set; }
         public int Subsector { get; set; }
-        public int? Nivel { get; set; }
+        public int Nivel { get; set; }
         [Required]
-        public int? Capacidad { get; set; }
+        // public int? Capacidad { get; set; }
         public int Provincia { get; set; }
         public int Municipio { get; set; }
         public int Distrito { get; set; }

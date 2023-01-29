@@ -70,10 +70,6 @@ namespace DevControl.Migrations
                     b.Property<int?>("Area")
                         .HasColumnType("int");
 
-                    b.Property<int?>("Capacidad")
-                        .IsRequired()
-                        .HasColumnType("int");
-
                     b.Property<int>("Categoria")
                         .HasColumnType("int");
 
@@ -105,7 +101,7 @@ namespace DevControl.Migrations
                     b.Property<int>("Municipio")
                         .HasColumnType("int");
 
-                    b.Property<int?>("Nivel")
+                    b.Property<int>("Nivel")
                         .HasColumnType("int");
 
                     b.Property<int>("Provincia")
@@ -244,6 +240,10 @@ namespace DevControl.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("codigo")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("mun")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 

@@ -16,6 +16,10 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = C:\Users\ddesarrollo\source\repos\DevAdm
 build_property._RazorSourceGeneratorDebug = 
 
+[C:/Users/ddesarrollo/source/repos/DevAdm/Pages/Establecimientos/Form.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRXN0YWJsZWNpbWllbnRvc1xGb3JtLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/ddesarrollo/source/repos/DevAdm/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 

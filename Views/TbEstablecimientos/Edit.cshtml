@@ -8,8 +8,9 @@
 <h4>TbEstablecimientos</h4>
 <hr />
 
-<div class="form-row">
-    <div class="row">
+
+<div class="row">
+    <div class="col-md-4">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
@@ -17,23 +18,12 @@
                 <input asp-for="Centro" class="form-control" />
                 <span asp-validation-for="Centro" class="text-danger"></span>
             </div>
-            @* <div class="form-group ">
-            <label asp-for="Institucion" class="control-label"></label>
-            @Html.DropDownListFor(x => x.Institucion, (IEnumerable
-            <SelectListItem>)ViewData["DbInstitucion"], "-- Select --", htmlAttributes: new { @class =
-            "form-control",id="institucion" }) <span asp-validation-for="Institucion" class="text-danger"></span>
-
-            <span asp-validation-for="Institucion" class="text-danger"></span>
-            </div> *@
-            <div class="form-group">
-                <label asp-for="Capacidad" class="control-label"></label>
-                <input asp-for="Capacidad" class="form-control" />
-                <span asp-validation-for="Capacidad" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-            <div class="form-group">
+            <div class="form-group ">
                 <label asp-for="Institucion" class="control-label"></label>
-                <input asp-for="Institucion" class="form-control" />
+                @Html.DropDownListFor(x => x.Institucion, (IEnumerable
+                <SelectListItem>)ViewData["DbInstitucion"], "-- Select --", htmlAttributes: new { @class =
+                "form-control",id="institucion" }) <span asp-validation-for="Institucion" class="text-danger"></span>
+
                 <span asp-validation-for="Institucion" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -63,7 +53,7 @@
                 @Html.DropDownListFor(x => x.Provincia, (IEnumerable
                 <SelectListItem>)ViewData["DbProvincias"], "-- Select --", htmlAttributes: new { @class =
                 "form-control",id="prov", onchange = "myFunc()" }) <span asp-validation-for="Provincia"
-                                                                         class="text-danger"></span>
+                    class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Municipio" class="control-label"></label>
@@ -89,47 +79,57 @@
             </div>
             <div class="form-group">
                 <label asp-for="Area" class="control-label"></label>
-                <input asp-for="Area" class="form-control" />
-                <span asp-validation-for="Area" class="text-danger"></span>
+
+                @Html.DropDownListFor(x => x.Area, (IEnumerable
+                <SelectListItem>)ViewData["DbArea"], "-- Select --", htmlAttributes: new { @class =
+                "form-control",id="Area" })
+
             </div>
+
             <div class="form-group">
-                <div class="form-group">
-                    <label asp-for="prueba" class="control-label"></label>
-                    <input asp-for="prueba" class="form-control" />
-                    <span asp-validation-for="prueba" class="text-danger"></span>
-                </div>
-                <div class="form-group">
+                <label asp-for="Laboratorio" class="control-label"></label>
 
-                    <div class="form-group">
-                        <label asp-for="Laboratorio" class="control-label"></label>
+                @Html.DropDownListFor(x => x.Laboratorio, (IEnumerable
+                <SelectListItem>)ViewData["DbYesNo"], "-- Select --", htmlAttributes: new { @class =
+                "form-control",id="lab" , onchange="fcLab()"})
 
-                        @Html.DropDownListFor(x => x.Laboratorio, (IEnumerable
-                        <SelectListItem>)ViewData["DbYesNo"], "-- Select --", htmlAttributes: new { @class =
-                        "form-control",id="lab" , onchange="fcLab()"})
-
-                        <span asp-validation-for="Laboratorio" class="text-danger"></span>
+                <span asp-validation-for="Laboratorio" class="text-danger"></span>
 
 
-                    </div>
+            </div>
 
-                    <div class="form-group" style="display: none;" id="dvCap">
-                        <label asp-for="Capacidad" class="control-label"></label>
-                        @Html.DropDownListFor(x => x.Capacidad, (IEnumerable
-                        <SelectListItem>)ViewData["DbCap"], "-- Select --", htmlAttributes: new { @class =
-                        "form-control",id="Cap" })
-                        <span asp-validation-for="Capacidad" class="text-danger"></span>
-                    </div>
-                <div class="form-group" hidden=True>
-                    <label asp-for="IdViepi" class="control-label"></label>
-                    <input asp-for="IdViepi" class="form-control display:none"   />
-                    <span asp-validation-for="prueba" class="text-danger"></span>
-                </div>
+            <div class="form-group" style="display: none;" id="dvCap">
+                <label asp-for="prueba" class="control-label"></label>
+                @Html.DropDownListFor(x => x.prueba, (IEnumerable
+                <SelectListItem>)ViewData["DbCap"], "-- Select --", htmlAttributes: new { @class =
+                "form-control",id="Cap" })
+                <span asp-validation-for="prueba" class="text-danger"></span>
+            </div>
+
+            <div class="form-group" hidden=True>
+                <label asp-for="IdViepi" class="control-label"></label>
+                <input asp-for="IdViepi" class="form-control display:none" />
+                <span asp-validation-for="prueba" class="text-danger"></span>
+            </div>
 
 
-                    <div class="form-group">
-                        <input type="submit" value="Save" class="btn btn-primary" />
-                    </div>
-                    <hr />
+            <div class="form-group">
+                <label asp-for="Estado" class="control-label"></label>
+
+                @Html.DropDownListFor(x => x.Estado, (IEnumerable
+                <SelectListItem>)ViewData["DbYesNo"], "-- Select --", htmlAttributes: new { @class =
+                "form-control"})
+
+                <span asp-validation-for="Estado" class="text-danger"></span>
+
+
+            </div>
+
+
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+            <hr />
 
         </form>
     </div>
@@ -166,7 +166,8 @@
 
 
         function myFunc() {
-            alert('hi')
+            
+            fcArea()
             let dropdown = document.getElementById('municipio-dropdown');
             dropdown.length = 0;
 
@@ -187,7 +188,7 @@
                             return;
                         }
 
-                        // examine the text in the response
+                        // examine the text in the response  
                         response.json().then(function (data) {
                             let option;
 
@@ -207,7 +208,7 @@
         }
 
         function fcDm() {
-            alert('hi')
+            
             let dropdown = document.getElementById('distrito-dropdown');
             dropdown.length = 0;
 
@@ -228,7 +229,7 @@
                             return;
                         }
 
-                        // examine the text in the response
+                        // examine the text in the response  
                         response.json().then(function (data) {
                             let option;
 
@@ -250,7 +251,7 @@
 
 
         function fcSec() {
-            alert('hi')
+            
             let dropdown = document.getElementById('sector-dropdown');
             dropdown.length = 0;
 
@@ -271,7 +272,7 @@
                             return;
                         }
 
-                        // examine the text in the response
+                        // examine the text in the response  
                         response.json().then(function (data) {
                             let option;
 
@@ -291,7 +292,50 @@
         }
 
 
-            //}
+
+
+        function fcArea() {
+            let dropdown = document.getElementById('area-dropdown');
+            dropdown.length = 0;
+
+            let defaultoption = document.createElement('option');
+            defaultoption.text = 'seleccione el Area de Salud';
+
+            dropdown.add(defaultoption);
+            dropdown.selectedindex = 0;
+            var data = document.getElementById("prov").value;
+            const url = '/api/municipios/getarea/' + data;
+
+            fetch(url)
+                .then(
+                    function (response) {
+                        if (response.status !== 200) {
+                            console.warn('looks like there was a problem. status code: ' +
+                                response.status);
+                            return;
+                        }
+
+                        // examine the text in the response  
+                        response.json().then(function (data) {
+                            let option;
+
+                            for (let i = 0; i < data.length; i++) {
+                                option = document.createElement('option');
+                                option.text = data[i].area;
+                                option.value = data[i].id;
+                                dropdown.add(option);
+                            }
+                        });
+                    }
+                )
+                .catch(function (err) {
+                    console.error('fetch error -', err);
+                });
+
+        }
+
+
+        //}
 
 
 
