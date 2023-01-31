@@ -1,3 +1,4 @@
+using System;
 using System.Data;
 using Dapper;
 using DevControl.Data;
@@ -8,6 +9,8 @@ using DevControl.Models.Viepi;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
 using MySql.Data.MySqlClient;
+using Mysqlx.Prepare;
+using static Mysqlx.Notice.Warning.Types;
 
 namespace DevControl.Services
 {
@@ -132,37 +135,79 @@ namespace DevControl.Services
             {
 
             }
-
-
-
-
         }
 
-        public void AddEstablecimientoSat(TbEstablecimientos tbEstablecimientos)
+        public EstableimientosSat estab(TbEstablecimientos tbEstablecimientos)
         {
             var mun = _context.tbMunicipios.Where(x => x.Id == tbEstablecimientos.Municipio).SingleOrDefault();
             var institucion = _context.tbInstitucion.Where(x => x.Id == tbEstablecimientos.Institucion).SingleOrDefault();
             var seccion = _context.tbSecciones.Where(x => x.Id == tbEstablecimientos.Seccion).SingleOrDefault();
+            var area = _context.tbArea.Where(x => x.id == tbEstablecimientos.Area && (x.Provincia == "25" || x.Provincia == "32" || x.Provincia == "01")).SingleOrDefault();
+
             EstableimientosSat sat = new()
             {
                 centro = tbEstablecimientos.Centro,
                 nivel = tbEstablecimientos.Nivel,
                 institucion = institucion.Institucion,
                 provincia = tbEstablecimientos.Provincia,
-                municipo = mun.mun,
+                municipio = mun.mun,
                 seccion = seccion.cod_one_se,
-                area = 1,
+                area = area == null ? null : area.cod,
                 activo = tbEstablecimientos.Estado,
-                usr ="cw",
-                tipo=tbEstablecimientos.Categoria
+                usr = "cw",
+                tipo = tbEstablecimientos.Categoria,
+                codigo = tbEstablecimientos.Sat
+            };
+            return sat;
+        }
 
+        public string AddEstablecimientoSat(TbEstablecimientos tbEstablecimientos)
+        {
+            var x = "";
 
+            var sat = estab(tbEstablecimientos);
+
+            var query = @"execute usp_crear_centro @centro,@nivel,@institucion,@provincia,@municipio,@seccion,@area,@activo,@usr,@tipo";
+            using (IDbConnection connection = new SqlConnection(iconfiguration.GetConnectionString("sat")))
+            {
+                // var affectedRows = connection.QuerySingle<string>(query, new { sat.centro, sat.nivel, sat.institucion, sat.provincia, sat.municipio, sat.seccion, sat.area, sat.activo, sat.usr, sat.tipo },commandType: CommandType.StoredProcedure);
+
+                var affectedRows = connection.ExecuteReader(query, new { sat.centro, sat.nivel, sat.institucion, sat.provincia, sat.municipio, sat.seccion, sat.area, sat.activo, sat.usr, sat.tipo });
+                while (affectedRows.Read())
+                {
+                    string id = affectedRows.GetString(0);  // Get the first column of the row as an int
+                    x = id;
+                    Console.WriteLine("Id: {0},", id);
+
+                }
+                Console.WriteLine($"Affected Rows: {x}");
+                return x;
 
             };
 
-
         }
+        public void UpEstablecimientoSat(TbEstablecimientos tbEstablecimientos)
+        {
+            var sat = estab(tbEstablecimientos);
+            //EXECUTE @RC = [dbo].[USP_Guardar_centro]
+            //               @codigo
+            //              ,@centro
+            //              ,@nivel
+            //              ,@institucion
+            //              ,@provincia
+            //              ,@municipio
+            //              ,@seccion
+            //              ,@area
+            //              ,@activo
+            //              ,@tipo
+            //              ,@usr
 
+            var query = @"execute USP_Guardar_centro @codigo, @centro,@nivel,@institucion,@provincia,@municipio,@seccion,@area,@activo,@tipo, @usr";
+            using (IDbConnection connection = new SqlConnection(iconfiguration.GetConnectionString("sat")))
+            {
+                connection.Execute(query, new { sat.codigo, sat.centro, sat.nivel, sat.institucion, sat.provincia, sat.municipio, sat.seccion, sat.area, sat.activo, sat.usr, sat.tipo });
+            }
+        }
 
 
         public void AddEstablecimiento(TbEstablecimientos tbEstablecimientos)
@@ -220,7 +265,7 @@ namespace DevControl.Services
             var insert = "INSERT INTO establecimientos  (nombre ,institucion,nivel1 ,nivel2,tipo,idadm1,idadm2,pruebas,lab,estado)           values  (@nombre, @institucion,@nivel1,@nivel2,@tipo,@idadm1,@idadm2,@pruebas,@lab,@estado) ";
             using (IDbConnection connection = new MySqlConnection(iconfiguration.GetConnectionString("DataViepi")))
             {
-                connection.Execute(insert,  new { est.nombre, est.institucion, est.nivel1, est.nivel2, est.tipo, est.idadm1, est.idadm2, est.pruebas, est.lab, est.estado } );
+                connection.Execute(insert, new { est.nombre, est.institucion, est.nivel1, est.nivel2, est.tipo, est.idadm1, est.idadm2, est.pruebas, est.lab, est.estado });
             }
 
             // how to execute an insert statement using a class with dapper?
@@ -289,13 +334,13 @@ namespace DevControl.Services
                 pruebas = tbEstablecimientos.prueba,
                 lab = tbEstablecimientos.Laboratorio,
                 estado = tbEstablecimientos.Estado,
-                id=Convert.ToInt32(tbEstablecimientos.IdViepi)
+                id = Convert.ToInt32(tbEstablecimientos.IdViepi)
             };
 
             var insert = "update  establecimientos set  nombre=@nombre, institucion=@institucion,           nivel1=@nivel1, nivel2=@nivel2,             tipo=@tipo,             idadm1=@idadm1,             idadm2=@idadm2,             pruebas=@pruebas,           lab=@lab,             estado=@estado           where id=@id";
             using (IDbConnection connection = new MySqlConnection(iconfiguration.GetConnectionString("DataViepi")))
             {
-                connection.Execute(insert,  new { est.nombre, est.institucion, est.nivel1, est.nivel2, est.tipo, est.idadm1, est.idadm2, est.pruebas, est.lab, est.estado, est.id } );
+                connection.Execute(insert, new { est.nombre, est.institucion, est.nivel1, est.nivel2, est.tipo, est.idadm1, est.idadm2, est.pruebas, est.lab, est.estado, est.id });
             }
 
             // how to execute an insert statement using a class with dapper?

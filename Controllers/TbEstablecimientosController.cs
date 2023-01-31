@@ -108,6 +108,7 @@ namespace DevControl.Controllers
                 Municipio = input.Municipio,
                 Distrito = input.Distrito,
                 Sector = input.Sector,
+                Seccion=input.Seccion,
                 Area = input.Area,
                 prueba = input.prueba,
                 Laboratorio = input.Laboratorio,
@@ -118,8 +119,12 @@ namespace DevControl.Controllers
                 Activacion = DateTime.Now,
                 Usuario = input.Usuario
             };
-            _data.AddEstablecimientoSat(establecimiento);
+          var y =  _data.AddEstablecimientoSat(establecimiento);
+            if(y=="")
+            {
 
+            }
+            
             //_data.AddEstablecimiento(establecimiento);
 
             if (!ModelState.IsValid)
@@ -171,11 +176,14 @@ namespace DevControl.Controllers
             var list_dm = new SelectList(dm, "Id", "distrito");
             ViewData["DbDm"] = list_dm;
 
-
-
             var se = _context.tbSectores.Where(x => x.Id == tbEstablecimientos.Sector).ToList();
             var list_se = new SelectList(se, "Id", "barrio");
             ViewData["DbSe"] = list_se;
+
+            var sec = _context.tbSecciones.Where(x => x.Id==tbEstablecimientos.Seccion).ToList();
+            var list_sec = new SelectList(sec, "Id", "nombreone");
+            ViewData["DbSecc"] = list_sec;
+
 
             var cap = _context.tbCapacidad.Where(x => x.Capacidad != "No procesa").ToList();
             var list_cap = new SelectList(cap, "Id", "Capacidad");
@@ -213,40 +221,14 @@ namespace DevControl.Controllers
             {
                 return NotFound();
             }
-
-            // var input = await _context.tbEstablecimientos.FindAsync(id);
-
-            
-            // TbEstablecimientos establecimiento = new()
-            // {
-            //     Centro = tbEstablecimientos.Centro,
-            //     Institucion = tbEstablecimientos.Institucion,
-            //     Categoria = tbEstablecimientos.Categoria,
-            //     Subsector = tbEstablecimientos.Subsector,
-            //     Nivel = tbEstablecimientos.Nivel,
-            //     Capacidad = 0, // input.Capacidad,
-            //     Provincia = tbEstablecimientos.Provincia,
-            //     Municipio = tbEstablecimientos.Municipio,
-            //     Distrito = tbEstablecimientos.Distrito,
-            //     Sector = input.Sector,
-            //     Area = tbEstablecimientos.Area,
-            //     prueba = tbEstablecimientos.prueba,
-            //     Laboratorio = tbEstablecimientos.Laboratorio,
-            //     IdViepi = input.IdViepi, ///input.IdViepi,
-            //     Sat = input.Sat,
-            //     Estado = 1,
-            //     Creacion = DateTime.Now,
-            //     Activacion = DateTime.Now,
-            //     Usuario = input.Usuario
-            // };
-
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 try
                 {
                     _context.Update(tbEstablecimientos);
 
-                    _data.UpdateEstablecimiento(tbEstablecimientos);
+                    _data.UpEstablecimientoSat(tbEstablecimientos);
+                    // _data.UpdateEstablecimiento(tbEstablecimientos);
 
                     await _context.SaveChangesAsync();
                 }
@@ -262,6 +244,13 @@ namespace DevControl.Controllers
                     }
                 }
                 return RedirectToAction(nameof(Index));
+            }
+            else
+            {
+
+                var errors = ModelState.Select(x => x.Value.Errors)
+                                       .Where(y => y.Count > 0)
+                                       .ToList();
             }
             return View(tbEstablecimientos);
         }

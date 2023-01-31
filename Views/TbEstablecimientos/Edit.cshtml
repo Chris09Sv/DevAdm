@@ -65,10 +65,19 @@
             <div class="form-group">
                 <label asp-for="Distrito" class="control-label"></label>
                 @Html.DropDownListFor(x => x.Distrito, (IEnumerable <SelectListItem>)ViewData["DbDm"], "-- Select --",
-                htmlAttributes: new { @class ="form-control",id="distrito-dropdown", onchange = "fcSec()" })
+                htmlAttributes: new { @class ="form-control",id="distrito-dropdown", onchange = "fcSecc()" })
 
 
                 <span asp-validation-for="Distrito" class="text-danger"></span>
+            </div>
+            <div class="form-group ">
+                <label asp-for="Seccion" class="control-label"></label>
+
+                                @Html.DropDownListFor(x => x.Seccion, (IEnumerable <SelectListItem>)ViewData["DbSecc"], "-- Select --",
+                htmlAttributes: new { @class ="form-control",id="seccion-dropdown" })
+
+           
+                <span asp-validation-for="Seccion" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Sector" class="control-label"></label>
@@ -82,7 +91,7 @@
 
                 @Html.DropDownListFor(x => x.Area, (IEnumerable
                 <SelectListItem>)ViewData["DbArea"], "-- Select --", htmlAttributes: new { @class =
-                "form-control",id="Area" })
+                "form-control",id="area-dropdown" })
 
             </div>
 
@@ -110,6 +119,11 @@
                 <label asp-for="IdViepi" class="control-label"></label>
                 <input asp-for="IdViepi" class="form-control display:none" />
                 <span asp-validation-for="prueba" class="text-danger"></span>
+            </div>
+            <div class="form-group" aria-disabled="true">
+                <label asp-for="Sat" class="control-label"></label>
+                <input asp-for="Sat" class="form-control display:none" />
+                <span asp-validation-for="Sat" class="text-danger"></span>
             </div>
 
 
@@ -166,7 +180,7 @@
 
 
         function myFunc() {
-            
+
             fcArea()
             let dropdown = document.getElementById('municipio-dropdown');
             dropdown.length = 0;
@@ -208,7 +222,7 @@
         }
 
         function fcDm() {
-            
+
             let dropdown = document.getElementById('distrito-dropdown');
             dropdown.length = 0;
 
@@ -251,7 +265,7 @@
 
 
         function fcSec() {
-            
+
             let dropdown = document.getElementById('sector-dropdown');
             dropdown.length = 0;
 
@@ -292,7 +306,46 @@
         }
 
 
+        function fcSecc() {
 
+            let dropdown = document.getElementById('seccion-dropdown');
+            dropdown.length = 0;
+
+            let defaultoption = document.createElement('option');
+            defaultoption.text = 'Seleccione Seccion';
+
+            dropdown.add(defaultoption);
+            dropdown.selectedindex = 0;
+            var data = document.getElementById("distrito-dropdown").value;
+            const url = '/api/municipios/GetSeccion/' + data;
+
+            fetch(url)
+                .then(
+                    function (response) {
+                        if (response.status !== 200) {
+                            console.warn('looks like there was a problem. status code: ' +
+                                response.status);
+                            return;
+                        }
+
+                        // examine the text in the response
+                        response.json().then(function (data) {
+                            let option;
+
+                            for (let i = 0; i < data.length; i++) {
+                                option = document.createElement('option');
+                                option.text = data[i].nombreone;
+                                option.value = data[i].id;
+                                dropdown.add(option);
+                            }
+                        });
+                    }
+                )
+                .catch(function (err) {
+                    console.error('fetch error -', err);
+                });
+
+        }
 
         function fcArea() {
             let dropdown = document.getElementById('area-dropdown');
@@ -335,7 +388,7 @@
         }
 
 
-        //}
+            //}
 
 
 

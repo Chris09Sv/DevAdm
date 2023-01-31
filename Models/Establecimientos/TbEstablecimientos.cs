@@ -28,7 +28,6 @@ namespace DevControl.Models.Establecimientos
 
         public DateTime? Activacion { get; set; }
         public DateTime? InActivacion { get; set; }
-
         public int Usuario { get; set; }
 
 

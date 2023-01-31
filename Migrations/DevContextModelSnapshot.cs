@@ -197,6 +197,9 @@ namespace DevControl.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("cod")
+                        .HasColumnType("int");
+
                     b.HasKey("id");
 
                     b.ToTable("tbArea");
