@@ -18,6 +18,7 @@ namespace DevControl.Models.Establecimientos
         public int Seccion { get; set; }
 
         public int? Sector { get; set; }
+        [Required]
         public int? Area { get; set; }
         public int prueba { get; set; }
         public int Laboratorio { get; set; }

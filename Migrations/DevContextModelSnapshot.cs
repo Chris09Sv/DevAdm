@@ -51,6 +51,9 @@ namespace DevControl.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("plataforma")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.ToTable("tbCategorias");
@@ -68,6 +71,7 @@ namespace DevControl.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<int?>("Area")
+                        .IsRequired()
                         .HasColumnType("int");
 
                     b.Property<int>("Categoria")

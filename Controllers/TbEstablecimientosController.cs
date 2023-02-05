@@ -95,7 +95,8 @@ namespace DevControl.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(TbEstablecimientos input)
         {
-
+            var idviepi = 0;
+            var idsat = "";
             TbEstablecimientos establecimiento = new()
             {
                 Centro = input.Centro,
@@ -108,7 +109,7 @@ namespace DevControl.Controllers
                 Municipio = input.Municipio,
                 Distrito = input.Distrito,
                 Sector = input.Sector,
-                Seccion=input.Seccion,
+                Seccion = input.Seccion,
                 Area = input.Area,
                 prueba = input.prueba,
                 Laboratorio = input.Laboratorio,
@@ -119,15 +120,33 @@ namespace DevControl.Controllers
                 Activacion = DateTime.Now,
                 Usuario = input.Usuario
             };
-          var y =  _data.AddEstablecimientoSat(establecimiento);
-            if(y=="")
+
+
+            var cat = _context.tbCategorias.Where(x => x.Id == establecimiento.Categoria).SingleOrDefault();
+
+            // validacion en plataformas
+            if (establecimiento.Nivel > 3 || cat.plataforma == 2)
             {
+                _data.AddEstablecimiento(establecimiento);
+                idviepi = _data.AddEstablecimiento(establecimiento);
 
             }
-            
-            //_data.AddEstablecimiento(establecimiento);
+            else if (cat.plataforma == 1)
+            {
+                idsat = _data.AddEstablecimientoSat(establecimiento);
 
-            if (!ModelState.IsValid)
+            }
+            else
+            {
+               idviepi= _data.AddEstablecimiento(establecimiento);
+                idsat = _data.AddEstablecimientoSat(establecimiento);
+                establecimiento.Sat=idsat;
+                establecimiento.IdViepi=idviepi;
+
+            }
+
+       
+            if (ModelState.IsValid)
             {
                 _context.Add(establecimiento);
                 await _context.SaveChangesAsync();
@@ -180,16 +199,15 @@ namespace DevControl.Controllers
             var list_se = new SelectList(se, "Id", "barrio");
             ViewData["DbSe"] = list_se;
 
-            var sec = _context.tbSecciones.Where(x => x.Id==tbEstablecimientos.Seccion).ToList();
+            var sec = _context.tbSecciones.Where(x => x.Id == tbEstablecimientos.Seccion).ToList();
             var list_sec = new SelectList(sec, "Id", "nombreone");
             ViewData["DbSecc"] = list_sec;
-
 
             var cap = _context.tbCapacidad.Where(x => x.Capacidad != "No procesa").ToList();
             var list_cap = new SelectList(cap, "Id", "Capacidad");
             ViewData["DbCap"] = list_cap;
 
-            var area = _context.tbArea.Where(x => x.id== tbEstablecimientos.Area).ToList();
+            var area = _context.tbArea.Where(x => x.id == tbEstablecimientos.Area).ToList();
             var list_area = new SelectList(area, "id", "Area");
             ViewData["DbArea"] = list_area;
 
@@ -197,11 +215,6 @@ namespace DevControl.Controllers
             YesNo.Add(new SelectListItem { Text = "No", Value = "0" });
             YesNo.Add(new SelectListItem { Text = "Si", Value = "1" });
             ViewData["DbYesNo"] = YesNo;
-
-            //var mun = 
-            //var list_nivel = new SelectList(nivel, "Id", "Nivel");
-            //ViewData["DbMun"] = list_nivel;
-
 
             if (tbEstablecimientos == null)
             {
@@ -228,7 +241,7 @@ namespace DevControl.Controllers
                     _context.Update(tbEstablecimientos);
 
                     _data.UpEstablecimientoSat(tbEstablecimientos);
-                    // _data.UpdateEstablecimiento(tbEstablecimientos);
+                    _data.UpdateEstablecimiento(tbEstablecimientos);
 
                     await _context.SaveChangesAsync();
                 }

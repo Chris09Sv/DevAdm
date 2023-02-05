@@ -160,57 +160,7 @@ namespace DevControl.Services
             };
             return sat;
         }
-
-        public string AddEstablecimientoSat(TbEstablecimientos tbEstablecimientos)
-        {
-            var x = "";
-
-            var sat = estab(tbEstablecimientos);
-
-            var query = @"execute usp_crear_centro @centro,@nivel,@institucion,@provincia,@municipio,@seccion,@area,@activo,@usr,@tipo";
-            using (IDbConnection connection = new SqlConnection(iconfiguration.GetConnectionString("sat")))
-            {
-                // var affectedRows = connection.QuerySingle<string>(query, new { sat.centro, sat.nivel, sat.institucion, sat.provincia, sat.municipio, sat.seccion, sat.area, sat.activo, sat.usr, sat.tipo },commandType: CommandType.StoredProcedure);
-
-                var affectedRows = connection.ExecuteReader(query, new { sat.centro, sat.nivel, sat.institucion, sat.provincia, sat.municipio, sat.seccion, sat.area, sat.activo, sat.usr, sat.tipo });
-                while (affectedRows.Read())
-                {
-                    string id = affectedRows.GetString(0);  // Get the first column of the row as an int
-                    x = id;
-                    Console.WriteLine("Id: {0},", id);
-
-                }
-                Console.WriteLine($"Affected Rows: {x}");
-                return x;
-
-            };
-
-        }
-        public void UpEstablecimientoSat(TbEstablecimientos tbEstablecimientos)
-        {
-            var sat = estab(tbEstablecimientos);
-            //EXECUTE @RC = [dbo].[USP_Guardar_centro]
-            //               @codigo
-            //              ,@centro
-            //              ,@nivel
-            //              ,@institucion
-            //              ,@provincia
-            //              ,@municipio
-            //              ,@seccion
-            //              ,@area
-            //              ,@activo
-            //              ,@tipo
-            //              ,@usr
-
-            var query = @"execute USP_Guardar_centro @codigo, @centro,@nivel,@institucion,@provincia,@municipio,@seccion,@area,@activo,@tipo, @usr";
-            using (IDbConnection connection = new SqlConnection(iconfiguration.GetConnectionString("sat")))
-            {
-                connection.Execute(query, new { sat.codigo, sat.centro, sat.nivel, sat.institucion, sat.provincia, sat.municipio, sat.seccion, sat.area, sat.activo, sat.usr, sat.tipo });
-            }
-        }
-
-
-        public void AddEstablecimiento(TbEstablecimientos tbEstablecimientos)
+        public vEstablecimientos estabViepi(TbEstablecimientos tbEstablecimientos)
         {
 
             var cat = _context.tbCategorias.Where(x => x.Id == tbEstablecimientos.Categoria).SingleOrDefault();
@@ -261,11 +211,29 @@ namespace DevControl.Services
                 lab = tbEstablecimientos.Laboratorio,
                 estado = tbEstablecimientos.Estado
             };
+            return est;
+        }
 
-            var insert = "INSERT INTO establecimientos  (nombre ,institucion,nivel1 ,nivel2,tipo,idadm1,idadm2,pruebas,lab,estado)           values  (@nombre, @institucion,@nivel1,@nivel2,@tipo,@idadm1,@idadm2,@pruebas,@lab,@estado) ";
+        public int AddEstablecimiento(TbEstablecimientos tbEstablecimientos)
+        {
+            var est = estabViepi(tbEstablecimientos);
+
+            var insert = "INSERT INTO establecimientos  (nombre ,institucion,nivel1 ,nivel2,tipo,idadm1,idadm2,pruebas,lab,estado)           values  (@nombre, @institucion,@nivel1,@nivel2,@tipo,@idadm1,@idadm2,@pruebas,@lab,@estado);  SELECT LAST_INSERT_ID()";
             using (IDbConnection connection = new MySqlConnection(iconfiguration.GetConnectionString("DataViepi")))
             {
-                connection.Execute(insert, new { est.nombre, est.institucion, est.nivel1, est.nivel2, est.tipo, est.idadm1, est.idadm2, est.pruebas, est.lab, est.estado });
+                var x = 0;
+
+                var affectedRows = connection.ExecuteReader(insert, new { est.nombre, est.institucion, est.nivel1, est.nivel2, est.tipo, est.idadm1, est.idadm2, est.pruebas, est.lab, est.estado });
+
+                while (affectedRows.Read())
+                {
+                    int id = affectedRows.GetInt32(0);  // Get the first column of the row as an int
+                    x = id;
+                    Console.WriteLine("Id: {0},", id);
+
+                }
+                Console.WriteLine($"Affected Rows: {x}");
+                return x;
             }
 
             // how to execute an insert statement using a class with dapper?
@@ -281,6 +249,41 @@ namespace DevControl.Services
 
         }
 
+
+
+        public string AddEstablecimientoSat(TbEstablecimientos tbEstablecimientos)
+        {
+            var x = "";
+
+            var sat = estab(tbEstablecimientos);
+
+            var query = @"execute usp_crear_centro @centro,@nivel,@institucion,@provincia,@municipio,@seccion,@area,@activo,@usr,@tipo";
+            using (IDbConnection connection = new SqlConnection(iconfiguration.GetConnectionString("sat")))
+            {
+                var affectedRows = connection.ExecuteReader(query, new { sat.centro, sat.nivel, sat.institucion, sat.provincia, sat.municipio, sat.seccion, sat.area, sat.activo, sat.usr, sat.tipo });
+                while (affectedRows.Read())
+                {
+                    string id = affectedRows.GetString(0);  // Get the first column of the row as an int
+                    x = id;
+                    Console.WriteLine("Id: {0},", id);
+
+                }
+                Console.WriteLine($"Affected Rows: {x}");
+                return x;
+
+            };
+
+        }
+
+        public void UpEstablecimientoSat(TbEstablecimientos tbEstablecimientos)
+        {
+            var sat = estab(tbEstablecimientos);
+            var query = @"execute USP_Guardar_centro @codigo, @centro,@nivel,@institucion,@provincia,@municipio,@seccion,@area,@activo,@tipo, @usr";
+            using (IDbConnection connection = new SqlConnection(iconfiguration.GetConnectionString("sat")))
+            {
+                connection.Execute(query, new { sat.codigo, sat.centro, sat.nivel, sat.institucion, sat.provincia, sat.municipio, sat.seccion, sat.area, sat.activo, sat.usr, sat.tipo });
+            }
+        }
 
 
         public void UpdateEstablecimiento(TbEstablecimientos tbEstablecimientos)

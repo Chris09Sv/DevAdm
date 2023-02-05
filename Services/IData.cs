@@ -14,7 +14,7 @@ namespace DevControl.Services
         List<T> LoadDataVp<T, U>(string sql, U parameters, string connectionString);
 
 
-        void AddEstablecimiento(TbEstablecimientos tbEstablecimientos);
+        public int  AddEstablecimiento(TbEstablecimientos tbEstablecimientos);
         public string AddEstablecimientoSat(TbEstablecimientos tbEstablecimientos) ;//{get;set;}
         void UpEstablecimientoSat(TbEstablecimientos tbEstablecimientos);
         void UpdateEstablecimiento(TbEstablecimientos tbEstablecimientos);
