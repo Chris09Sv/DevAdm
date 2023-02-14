@@ -138,14 +138,14 @@ namespace DevControl.Controllers
             }
             else
             {
-               idviepi= _data.AddEstablecimiento(establecimiento);
+                idviepi = _data.AddEstablecimiento(establecimiento);
                 idsat = _data.AddEstablecimientoSat(establecimiento);
-                establecimiento.Sat=idsat;
-                establecimiento.IdViepi=idviepi;
+                establecimiento.Sat = idsat;
+                establecimiento.IdViepi = idviepi;
 
             }
 
-       
+
             if (ModelState.IsValid)
             {
                 _context.Add(establecimiento);
@@ -190,8 +190,8 @@ namespace DevControl.Controllers
             var list_mun = new SelectList(mun, "Id", "municipio");
             ViewData["DbMun"] = list_mun;
 
-
-            var dm = _context.tbDistritos.Where(x => x.Id == tbEstablecimientos.Distrito).ToList();
+            var municipio = mun.Where(x=>x.Id==tbEstablecimientos.Municipio).SingleOrDefault();
+            var dm = _context.tbDistritos.Where(x => (Convert.ToInt32(x.provincia) == tbEstablecimientos.Provincia) && x.municipio == municipio.mun).ToList();
             var list_dm = new SelectList(dm, "Id", "distrito");
             ViewData["DbDm"] = list_dm;
 
@@ -207,7 +207,7 @@ namespace DevControl.Controllers
             var list_cap = new SelectList(cap, "Id", "Capacidad");
             ViewData["DbCap"] = list_cap;
 
-            var area = _context.tbArea.Where(x => x.id == tbEstablecimientos.Area).ToList();
+            var area = _context.tbArea.Where(x => x.id == tbEstablecimientos.Area || Convert.ToInt32(x.Provincia) == tbEstablecimientos.Provincia).ToList();
             var list_area = new SelectList(area, "id", "Area");
             ViewData["DbArea"] = list_area;
 
@@ -238,10 +238,22 @@ namespace DevControl.Controllers
             {
                 try
                 {
-                    _context.Update(tbEstablecimientos);
+                    if (tbEstablecimientos.IdViepi == null)
+                    {
+                        tbEstablecimientos.IdViepi = _data.AddEstablecimiento(tbEstablecimientos);
+                        _context.Update(tbEstablecimientos);
+                        _data.UpEstablecimientoSat(tbEstablecimientos);
+                    }
+                    else
+                    {
+                        _context.Update(tbEstablecimientos);
+                        _data.UpEstablecimientoSat(tbEstablecimientos);
+                        _data.UpdateEstablecimiento(tbEstablecimientos);
+                    }
+                    // _context.Update(tbEstablecimientos);
 
-                    _data.UpEstablecimientoSat(tbEstablecimientos);
-                    _data.UpdateEstablecimiento(tbEstablecimientos);
+                    // _data.UpEstablecimientoSat(tbEstablecimientos);
+                    // _data.UpdateEstablecimiento(tbEstablecimientos);
 
                     await _context.SaveChangesAsync();
                 }
