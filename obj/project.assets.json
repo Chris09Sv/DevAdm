@@ -10958,19 +10958,24 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\ddesarrollo\\.nuget\\packages\\": {}
+    "C:\\Users\\Cristopher Solano\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\ddesarrollo\\Source\\Repos\\DevAdm\\DevControl.csproj",
+      "projectUniqueName": "C:\\Users\\Cristopher Solano\\source\\repos\\DevAdm\\DevControl.csproj",
       "projectName": "DevControl",
-      "projectPath": "C:\\Users\\ddesarrollo\\Source\\Repos\\DevAdm\\DevControl.csproj",
-      "packagesPath": "C:\\Users\\ddesarrollo\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\ddesarrollo\\Source\\Repos\\DevAdm\\obj\\",
+      "projectPath": "C:\\Users\\Cristopher Solano\\source\\repos\\DevAdm\\DevControl.csproj",
+      "packagesPath": "C:\\Users\\Cristopher Solano\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Cristopher Solano\\source\\repos\\DevAdm\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
-        "C:\\Users\\ddesarrollo\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Cristopher Solano\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [

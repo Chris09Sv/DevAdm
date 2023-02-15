@@ -27,7 +27,19 @@ namespace DevControl.Controllers
         public IActionResult Index()
         {
 
+            var prov = _context.tbProvincias.ToList();
+            var lista = new SelectList(prov, "id", "Provincia");
+            ViewData["DbProvincias"] = lista;
 
+
+            var inst = _context.tbInstitucion.ToList();
+            var list_inst = new SelectList(inst, "Id", "Institucion");
+            ViewData["DbInstitucion"] = list_inst;
+
+            var cat = _context.tbCategorias.ToList();
+            var list_cat = new SelectList(cat, "Id", "Categoria");
+            ViewData["DbCategoria"] = list_cat;
+            
             return _data.GetVmEstablecimientos() != null ?
                         View(_data.GetVmEstablecimientos()) :
                         Problem("Entity set 'DevContext.tbEstablecimientos'  is null.");
