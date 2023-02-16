@@ -51,7 +51,7 @@ namespace DevControl.Services
                                 a.Id,
                                     u.uname as Usuario, u.Activo, u.Nombres, u.Apellidos, u.Email,
                                     t.centro as Centro, t.codigo as Codigo, t.Activo as Estado,
-                                    CONCAT_WS(' ',case when len(t.COD_ONE_PR)=1 then CONCAT('0',t.COD_ONE_PR) else CAST(t.COD_ONE_PR as varchar) end,t.Provincia) as Provincia,
+                                    Trim(CONCAT_WS(' ',case when len(t.COD_ONE_PR)=1 then CONCAT('0',t.COD_ONE_PR) else CAST(t.COD_ONE_PR as varchar) end,t.Provincia)) as Provincia,
                                     
                                     CONCAT_WS(' ',CONCAT(case when len(t.COD_ONE_PR)=1 then CONCAT('0',t.COD_ONE_PR) else CAST(t.COD_ONE_PR as varchar) end,COD_ONE_MU),t.Municipio) as Municipio, Institucio as Institucion
                                 from Usuarios U
@@ -79,7 +79,7 @@ namespace DevControl.Services
             var sql = @"
                             select
                                     e.id,
-                                    e.Centro, i.Institucion, c.Categoria, sc.Subsector, e.Nivel, CONCAT_WS(' ', t.codigo, t.Provincia) as Provincia, CONCAT_WS(' ',m.codigo,m.municipio) as Municipio, d.Distrito, s.barrio as Sector,
+                                    e.Centro, trim(upper(i.Institucion)) as Institucion, c.Categoria, sc.Subsector, e.Nivel, CONCAT_WS(' ', t.codigo, t.Provincia) as Provincia, CONCAT_WS(' ',m.codigo,m.municipio) as Municipio, d.Distrito, s.barrio as Sector,
                                     ' ' as Area,
                                     e.prueba,
                                     case when Laboratorio=1 then 'Si' else 'No' end as Laboratorio,

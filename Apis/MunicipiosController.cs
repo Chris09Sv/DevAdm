@@ -1,11 +1,8 @@
-
 using Dapper;
 using DevControl.Data;
 using DevControl.Models;
 using DevControl.Models.Establecimientos;
 using DevControl.Models.Viepi;
-//using Linq;
-//using Microsoft.AspNetCore.li;
 using DevControl.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
@@ -36,7 +33,7 @@ namespace DevControl.Apis
         public ActionResult GetProv()
         {
             //var municipio = _context.tbProvincias.ToList();
-            var query = "select id,codigo,concat_ws(' ',codigo,Provincia) as Provincia from tbprovincias";
+            var query = "select id,codigo,concat_ws(' ',codigo,Provincia) as Provincia from tbprovincias  union select '','',''";
 
             using (IDbConnection connection = new SqlConnection(iconfiguration.GetConnectionString("DevControlContext")))
             {
@@ -153,6 +150,16 @@ namespace DevControl.Apis
         {
             return Ok(_data.GetVmEstablecimientos());
         }
+        [HttpGet]
+
+        public ActionResult GetInstituciones()
+        {
+            var Institucion = _context.tbInstitucion.ToList();
+
+            Institucion.Insert(1,  new TbInstitucion { Institucion = ""});
+            return Ok(Institucion.OrderBy(x=>x.Institucion));
+        }
+       
 
     }
 

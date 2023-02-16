@@ -15,8 +15,8 @@
 
 <head>
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/css/bootstrap.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap5.min.css">
+    @* <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/css/bootstrap.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap5.min.css"> *@
 
 </head>
 <p>
@@ -34,18 +34,36 @@
 							<input type="checkbox" class="filter-checkbox" value="Developer"/>  Developer
 						</div>
 					</div>*@
-					<div cla
-                        ss="col-4">
+					<div class="col-4">
 						<div class="btn-group submitter-group float-right">
 							<div class="input-group-prepend">
 								<div class="input-group-text">Provincia</div>
 							</div>
 							<select class="form-control status-dropdown" id="provincia-dropdown">
-								@* <option value="">Todos</option> *@
-
-							</select>
+                            </select>
 						</div>
 					</div>
+
+                    <div class="col-4">
+						<div class="btn-group submitter-group float-right">
+							<div class="input-group-prepend">
+								<div class="input-group-text">Provincia</div>
+							</div>
+							<select class="form-control status-dropdown" id="provincia-dropdown">
+                            </select>
+						</div>
+					</div>
+
+
+
+            <div class="col-4">
+                <div class="btn-group submitter-group left-right">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">Institucion</div>
+                    </div>
+                    <select class="form-control status-dropdown" id="institucion-dropdown"></select>
+                </div>
+            </div>
 				</div>
 			</div>
 
@@ -160,31 +178,16 @@
 @section scripts
 
     {
-  @*  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-    <script src="https://cdn.datatables.net/1.13.2/js/dataTables.bootstrap5.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css"></script>
-    <script src="https://cdn.datatables.net/1.13.2/css/dataTables.bootstrap5.min.css"></script>
 
-    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-    <script src="https://cdn.datatables.net/1.13.2/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.13.2/js/dataTables.bootstrap5.min.js"></script>
-*@
-    <SCRIPT SRC="https://cdn.datatables.net/buttons/2.3.4/js/dataTables.buttons.min.js"></SCRIPT>
-    <SCRIPT SRC="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></SCRIPT>
-    <SCRIPT SRC="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></SCRIPT>
-    <SCRIPT SRC="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></SCRIPT>
-    <SCRIPT SRC="https://cdn.datatables.net/buttons/2.3.4/js/buttons.html5.min.js"></SCRIPT>
-    <SCRIPT SRC="https://cdn.datatables.net/buttons/2.3.4/js/buttons.print.min.js"></SCRIPT>
-
-        <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-        <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-        <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
-    @* <script src="~/lib/datatables.net/jquery.dataTables.min.js"></script>
-    // <script src="~/datatables.net-bs/dataTables.bootstrap.min.js"></script>
-       <script src="//cdn.datatables.net/plug-ins/1.12.1/i18n/es-MX.json"></script>*@
-
+<script src="https://cdn.datatables.net/buttons/2.3.4/js/buttons.colVis.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.2/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.3.4/js/dataTables.buttons.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.3.4/js/buttons.html5.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.3.4/js/buttons.colVis.min.js"></script>
     <script type="text/javascript">
-
 
         function myFunc() {
 
@@ -226,6 +229,48 @@
 
         }
 
+            function myFuncInst() {
+
+                let dropdown = document.getElementById('institucion-dropdown');
+                dropdown.length = 0;
+
+                let defaultoption = document.createElement('option');
+                defaultoption.text = 'seleccione una institucion';
+
+                dropdown.add(defaultoption);
+                dropdown.selectedindex = 0;
+                const url = '/api/municipios/GetInstituciones';
+
+                fetch(url)
+                    .then(
+                        function (response) {
+                            if (response.status !== 200) {
+                                console.warn('looks like there was a problem. status code: ' +
+                                    response.status);
+                                return;
+                            }
+
+                            // examine the text in the response
+                            response.json().then(function (data) {
+                                let option;
+
+                                for (let i = 0; i < data.length; i++) {
+                                    option = document.createElement('option');
+                                    option.text = data[i].institucion;
+                                    option.value = data[i].institucion;
+                                    dropdown.add(option);
+                                }
+                            });
+                        }
+                    )
+                    .catch(function (err) {
+                        console.error('fetch error -', err);
+                    });
+
+            }
+
+
+
 
 
         document.getElementById('export').onclick = function () {
@@ -257,6 +302,8 @@
                 excelFileURL.click();
             }
         }
+               myFunc()
+               myFuncInst()
     </script>
 
     <script>
@@ -265,7 +312,6 @@
 
         $(document).ready(function () {
                 var dataTable = $('#tabla').DataTable
-
                 (
                     {
                         ajax: {
@@ -273,12 +319,20 @@
                             dataSrc: ""
                         }
 
-                        , dom: 'Bfrtip',
-                        dom:'',
-                        buttons: [
-                            'copy', 'csv', 'excel', 'pdf', 'print'
-                        ],
-                        lengthMenu: [
+                        , 
+                        dom: 'Blfrtip',
+                      buttons: [
+            {
+                extend: 'collection',
+                className: 'custom-html-collection',
+                buttons: [
+                    '<h3>EXportar</h3>',
+                    'pdf',
+                    'csv',
+                    'excel'
+                ]
+            }
+        ],          lengthMenu: [
                             [10, 25, 50, 100, 200, -1],
                             [10, 25, 50, 100, 200, 'All'],
                         ],
@@ -358,7 +412,7 @@
                             "buttons": {
                                 "copy": "Copiar",
                                 "colvis": "Visibilidad",
-                                "collection": "Colección",
+                                "collection": "Descargar",
                                 "colvisRestore": "Restaurar visibilidad",
                                 "copyKeys": "Presione ctrl o u2318 + C para copiar los datos de la tabla al portapapeles del sistema. <br \/> <br \/> Para cancelar, haga clic en este mensaje o presione escape.",
                                 "copySuccess": {
@@ -592,15 +646,27 @@
                     dataTable.column(1).search(searchTerms.join('|'), true, false, true).draw();
                 });
 
-                $('.status-dropdown').on('change', function (e) {
+                $('#institucion-dropdown').on('change', function (e) {
                     var status = $(this).val();
-                    $('.status-dropdown').val(status)
+                    $('#institucion-dropdown').val(status)
                     console.log(status)
                     //dataTable.column(6).search('\\s' + status + '\\s', true, false, true).draw();
-                    dataTable.column(6).search(status).draw();
+                    dataTable.column(1).search(status).draw();
                     console.log(dataTable.va)
 
-                })
+                });
+
+
+                $('#provincia-dropdown').on('change', function (e) {
+                    var status = $(this).val();
+                    $('#provincia-dropdown').val(status)
+                    console.log(status)
+                    //dataTable.column(6).search('\\s' + status + '\\s', true, false, true).draw();
+                    dataTable.column(5).search(status).draw();
+                    console.log(dataTable.va)
+
+                });
+
                 });
 
     </script>
