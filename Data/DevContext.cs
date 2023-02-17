@@ -1,11 +1,13 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿//using Microsoft.AspNetCore
 using DevControl.Models;
 using DevControl.Models.Establecimientos;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 
 namespace DevControl.Data
 {
 
-    public class DevContext : DbContext
+    public class DevContext : IdentityDbContext 
 
     {
 

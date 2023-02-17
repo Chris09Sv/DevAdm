@@ -2,9 +2,11 @@ using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using DevControl.Models;
 using DevControl.Services;
+using Microsoft.AspNetCore.Authorization;
 
 namespace DevControl.Controllers;
 
+[Authorize]
 public class SatController : Controller
 {
     private readonly ILogger<SatController> _logger;

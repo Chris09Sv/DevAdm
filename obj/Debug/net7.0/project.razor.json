@@ -18675,6 +18675,11 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "c:\\Users\\crist\\source\\repos\\DevAdm\\Areas\\Identity\\Pages\\_ViewStart.cshtml",
+      "TargetPath": "Areas\\Identity\\Pages\\_ViewStart.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "c:\\Users\\crist\\source\\repos\\DevAdm\\Views\\Sat\\List.cshtml",
       "TargetPath": "Views\\Sat\\List.cshtml",
       "FileKind": "mvc"
@@ -18697,6 +18702,11 @@
     {
       "FilePath": "c:\\Users\\crist\\source\\repos\\DevAdm\\Views\\_ViewStart.cshtml",
       "TargetPath": "Views\\_ViewStart.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\Users\\crist\\source\\repos\\DevAdm\\Views\\Shared\\_LoginPartial.cshtml",
+      "TargetPath": "Views\\Shared\\_LoginPartial.cshtml",
       "FileKind": "mvc"
     },
     {

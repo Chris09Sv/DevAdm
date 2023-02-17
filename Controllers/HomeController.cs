@@ -1,8 +1,10 @@
 ﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using DevControl.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace DevControl.Controllers;
+[Authorize]
 
 public class HomeController : Controller
 {

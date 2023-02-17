@@ -1,15 +1,19 @@
 using DevControl.Data;
 using DevControl.Services;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+
 builder.Services.AddRazorPages();
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<DevContext>(options => options.UseSqlServer( builder.Configuration.GetConnectionString("DevControlContext")));
+
+builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+    .AddEntityFrameworkStores<DevContext>();
 
 builder.Services.AddScoped<IData,Data>();
 var app = builder.Build();

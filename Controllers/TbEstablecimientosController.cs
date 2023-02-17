@@ -8,9 +8,12 @@ using Microsoft.EntityFrameworkCore;
 using DevControl.Data;
 using DevControl.Models.Establecimientos;
 using DevControl.Services;
+using Microsoft.AspNetCore.Authorization;
 
 namespace DevControl.Controllers
 {
+
+    [Authorize]
     public class TbEstablecimientosController : Controller
     {
         private readonly DevContext _context;
