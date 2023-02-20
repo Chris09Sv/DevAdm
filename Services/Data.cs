@@ -80,7 +80,7 @@ namespace DevControl.Services
                             select
                                     e.id,
                                     e.Centro, trim(upper(i.Institucion)) as Institucion, c.Categoria, sc.Subsector, e.Nivel, CONCAT_WS(' ', t.codigo, t.Provincia) as Provincia, CONCAT_WS(' ',m.codigo,m.municipio) as Municipio, d.Distrito, s.barrio as Sector,
-                                    ' ' as Area,
+                                    a.Area as Area,
                                     e.prueba,
                                     case when Laboratorio=1 then 'Si' else 'No' end as Laboratorio,
                                     case when IdViepi>0 then 'Si' else 'No' end as Viepi,
@@ -108,7 +108,9 @@ namespace DevControl.Services
                                     inner JOIN tbSubsectors sc
                                     on 
                                 sc.Id=e.Subsector
-                                
+                                left join tbarea a 
+                                on 
+                                a.id=e.area
                                 
                                 ";
             //  var customers=""'

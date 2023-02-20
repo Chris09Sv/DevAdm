@@ -33,12 +33,12 @@ namespace DevControl.Apis
         public ActionResult GetProv()
         {
             //var municipio = _context.tbProvincias.ToList();
-            var query = "select id,codigo,concat_ws(' ',codigo,Provincia) as Provincia from tbprovincias  union select '','',''";
+            var query = "select Area,Area as Provincia from tbarea  union select '','Todos' ";
 
             using (IDbConnection connection = new SqlConnection(iconfiguration.GetConnectionString("DevControlContext")))
             {
 
-                var customers = connection.Query<TbProvincias>(query);
+                var customers = connection.Query(query);
 
                 return Ok(customers);
             };

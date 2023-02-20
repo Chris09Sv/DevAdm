@@ -37,7 +37,7 @@
 					<div class="col-4">
 						<div class="btn-group submitter-group float-right">
 							<div class="input-group-prepend">
-								<div class="input-group-text">Provincia</div>
+								<div class="input-group-text">DPS</div>
 							</div>
 							<select class="form-control status-dropdown" id="provincia-dropdown">
                             </select>
@@ -57,7 +57,7 @@
 				</div>
 			</div>
 
-<table id="tabla" class="table table-striped" style="width:100%" ta-page-length='100'>
+<table id="tabla" class="table table-striped" style="width:100%">
     <thead>
         <tr>
             <th>
@@ -185,7 +185,7 @@
             dropdown.length = 0;
 
             let defaultoption = document.createElement('option');
-            defaultoption.text = 'seleccione una provincia';
+            defaultoption.text = 'seleccione una DPS/DAS';
 
             dropdown.add(defaultoption);
             dropdown.selectedindex = 0;
@@ -206,8 +206,8 @@
 
                             for (let i = 0; i < data.length; i++) {
                                 option = document.createElement('option');
-                                option.text = data[i].provincia;
-                                option.value = data[i].provincia;
+                                option.text = data[i].Provincia;
+                                option.value = data[i].Area;
                                 dropdown.add(option);
                             }
                         });
@@ -652,7 +652,7 @@
                     $('#provincia-dropdown').val(status)
                     console.log(status)
                     //dataTable.column(6).search('\\s' + status + '\\s', true, false, true).draw();
-                    dataTable.column(5).search(status).draw();
+                    dataTable.column(9).search(status).draw();
                     console.log(dataTable.va)
 
                 });
